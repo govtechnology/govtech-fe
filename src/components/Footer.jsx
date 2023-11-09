@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-1 sm:gap-1 sm:grid-cols-3">
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercas">
+              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
                 Navigasi
               </h2>
               <ul className="text-gray-500 font-medium">
@@ -47,18 +47,13 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link href="/donate" className="hover:underline">
-                    Donasi
+                  <Link href="/status" className="hover:underline">
+                    Cek Status
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link href="/about" className="hover:underline">
-                    Tentang Kami
-                  </Link>
-                </li>
-                <li>
                   <Link href="/faq" className="hover:underline">
-                    FAQ
+                    Pertanyaan Umum
                   </Link>
                 </li>
               </ul>
@@ -113,14 +108,8 @@ export default function Footer() {
         <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center">
-            © 2023{" "}
-            <a
-              href="https://2022.lokreatif.org/berkas/kompetisi/pemenang/Desain_UI_UX/25.png"
-              className="hover:underline"
-            >
-              govTechnology™
-            </a>
-            . All Rights Reserved.
+            © 2023 <a className="hover:underline">govTechnology™</a>. All Rights
+            Reserved.
           </span>
           <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
             <a className="text-gray-500 hover:text-gray-900">
