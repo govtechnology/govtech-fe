@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0 max-w-[300px]">
             <a className="flex items-center pb-6">
-              <span className="self-center text-primary text-2xl font-semibold whitespace-nowrap">
+              <span className="self-center text-primary text-2xl font-semibold whitespace-nowrap leading-none">
                 ngubalan
                 <br />
                 daring

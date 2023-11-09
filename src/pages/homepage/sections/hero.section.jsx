@@ -1,10 +1,24 @@
+import MarqueeElement from "../../../components/Marquee";
 import MapsIllustration from "../components/MapsIllustration";
+
+const sliderItems = [
+  "SKIK",
+  "SKTM",
+  "SKMS",
+  "SKCK",
+  "SKU",
+  "SKK",
+  "SKD",
+  "SKDI",
+  "SKPB",
+  "SKKM",
+];
 
 function HeroSection() {
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen relative">
+    <div className="container max-w-screen-xl flex flex-col justify-center items-center w-screen h-screen relative">
       <MapsIllustration color="#EEEEEE" />
-      <div className="absolute text-center">
+      <div className="absolute text-center mb-12">
         <h1 className="text-[78px] leading-none font-extrabold">
           Sistem Administrasi Digital
           <br />
@@ -13,9 +27,26 @@ function HeroSection() {
         <h3 className="text-[24px] mt-[18px]">
           Mengurus surat online dengan mudah, cepat dan efisien
         </h3>
-        <button className="bg-primary py-4 px-12 text-white rounded-full mt-10">
+        <button className="bg-primary py-4 px-12 text-white text-[19px] rounded-full mt-10">
           Urus sekarang
         </button>
+      </div>
+      <div className="absolute bottom-14 w-full overflow-x-hidden">
+        {Array.from({ length: 2 }, (_, index) => (
+          <MarqueeElement
+            key={index}
+            direction={index % 2 === 0 ? "left" : "right"}
+          >
+            {sliderItems.map((name, index) => (
+              <div
+                className="py-4 px-12 mx-6 bg-[#515151] rounded-full text-white text-[24px]"
+                key={index}
+              >
+                {name}
+              </div>
+            ))}
+          </MarqueeElement>
+        ))}
       </div>
     </div>
   );
