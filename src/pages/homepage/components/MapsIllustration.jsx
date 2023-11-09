@@ -2,6 +2,7 @@
 function MapsIllustration({ color }) {
   return (
     <svg
+      data-aos="zoom-out"
       width="1440"
       height="908"
       viewBox="0 0 1440 908"

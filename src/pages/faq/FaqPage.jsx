@@ -3,7 +3,7 @@ import Accordion from "../../components/Accordion";
 const FaqPage = () => {
   return (
     <div
-      data-aos="fade-up"
+      data-aos="fade-down"
       className="container max-w-screen-xl mt-32 mb-8 px-8"
     >
       <div className="gap-12 grid md:grid-cols-2">
