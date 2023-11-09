@@ -11,6 +11,7 @@ export default {
       },
       colors: {
         primary: "#000000",
+        "primary-2": "#EEEEEE",
       },
     },
   },
