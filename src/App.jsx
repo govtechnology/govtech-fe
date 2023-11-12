@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/homepage/HomePage";
 import FaqPage from "./pages/faq/FaqPage";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import BaseLayout from "./components/BaseLayout";
+import LoginPage from "./pages/auth/LoginPage";
 
 function App() {
   useEffect(() => {
@@ -15,14 +15,13 @@ function App() {
 
   return (
     <div className="font-manrope">
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+      <Routes>
+        <Route path="/" element={<BaseLayout />}>
+          <Route index element={<HomePage />} />
           <Route path="/faq" element={<FaqPage />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+        </Route>
+        <Route path="/auth/signin" element={<LoginPage />} />
+      </Routes>
     </div>
   );
 }
