@@ -4,7 +4,7 @@ import HeroSection from "./sections/hero.section";
 
 function HomePage() {
   return (
-    <div className="flex flex-col container max-w-screen-xl overflow-hidden">
+    <div className="flex flex-col container max-w-screen-xl">
       <HeroSection />
       <AboutSection />
     </div>

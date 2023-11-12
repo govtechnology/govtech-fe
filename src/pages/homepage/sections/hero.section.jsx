@@ -21,7 +21,10 @@ function HeroSection() {
       className="flex flex-col justify-center items-center relative"
     >
       <MapsIllustration color="#EEEEEE" />
-      <div data-aos="fade-down" className="absolute md:text-center mb-12 px-8">
+      <div
+        data-aos="fade-down"
+        className="absolute md:text-center mb-12 px-8 z-10"
+      >
         <h1 className="text-4xl md:text-6xl leading-none font-extrabold">
           Sistem Administrasi Digital
           <br />
@@ -37,7 +40,7 @@ function HeroSection() {
           Urus sekarang
         </button>
       </div>
-      <div className="absolute bottom-14 w-full">
+      <div className="absolute mt-3 bottom-14 w-full">
         {Array.from({ length: 2 }, (_, index) => (
           <MarqueeElement
             key={index}
