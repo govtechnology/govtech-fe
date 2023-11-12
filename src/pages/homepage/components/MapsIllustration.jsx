@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 function MapsIllustration({ color }) {
   return (
-    <div className="relative  overflow-hidden">
-      <div className="absolute inset-0 z-[1] w-full h-full bg-gradient-to-t from-white via-white to-transparent mt-[10%]"></div>
+    <div className="relative  md:overflow-hidden">
+      <div className="absolute inset-0 z-[1] w-full h-full bg-gradient-to-t from-white via-white to-transparent mt-[10%] md:visible hidden" />
       <svg
-        className="w-screen "
+        className="md:w-screen "
         data-aos="zoom-out"
         width="1440"
         height="908"
