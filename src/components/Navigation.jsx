@@ -24,12 +24,14 @@ function Navigation({ active }) {
         </Link>
 
         <div className="flex md:order-2">
-          <button
-            type="button"
-            className=" text-primary font-medium rounded-[99px] border-primary border-[1px] text-sm px-[35px] py-2 mx-2 text-center mr-3 hover:bg-primary hover:text-white md:mr-0"
-          >
-            Masuk
-          </button>
+          <Link to="/auth/signin">
+            <button
+              type="button"
+              className=" text-primary font-medium rounded-[99px] border-primary border-[1px] text-sm px-[35px] py-2 mx-2 text-center mr-3 hover:bg-primary hover:text-white md:mr-0"
+            >
+              Masuk
+            </button>
+          </Link>
 
           <button
             onClick={toggleMobileMenu}
