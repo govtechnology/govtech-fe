@@ -7,14 +7,14 @@ const NavigationMenu = ({ isOpen }) => {
     <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
       <ul className="flex flex-col p-4 font-medium">
         <li>
-          <Link className="block py-2 pl-3 pr-4 text-gray-900 rounded" href="/">
+          <Link className="block py-2 pl-3 pr-4 text-gray-900 rounded" to="/">
             Beranda
           </Link>
         </li>
         <li>
           <Link
             className="block py-2 pl-3 pr-4 text-gray-900 rounded"
-            href="/donate"
+            href="/status"
           >
             Cek Status
           </Link>
@@ -22,7 +22,7 @@ const NavigationMenu = ({ isOpen }) => {
         <li>
           <Link
             className="block py-2 pl-3 pr-4 text-gray-900 rounded"
-            href="/about"
+            to="/faq"
           >
             Pertanyaan Umum
           </Link>

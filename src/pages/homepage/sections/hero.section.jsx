@@ -2,16 +2,16 @@ import MarqueeElement from "../../../components/Marquee";
 import MapsIllustration from "../components/MapsIllustration";
 
 const sliderItems = [
-  "SKIK",
-  "SKTM",
-  "SKMS",
-  "SKCK",
-  "SKU",
-  "SKK",
-  "SKD",
-  "SKDI",
-  "SKPB",
-  "SKKM",
+  "SK Izin Keluarga",
+  "SK Tidak Mampu",
+  "SK Membeli Solar",
+  "SK Catatan Kepolisian",
+  "SK Usaha",
+  "SK Kehilangan",
+  "SK Domisili",
+  "SK Domisili Instansi",
+  "SK Pengajuan Bank",
+  "SK Kematian",
 ];
 
 function HeroSection() {
@@ -35,7 +35,7 @@ function HeroSection() {
         </h3>
         <button
           data-aos="fade-up"
-          className="bg-primary py-4 px-12 text-white text-[19px] rounded-full mt-10"
+          className="bg-primary py-4 px-12 text-white text-lg rounded-full mt-10"
         >
           Urus sekarang
         </button>
@@ -49,7 +49,7 @@ function HeroSection() {
             {sliderItems.map((name, index) => (
               <div
                 data-aos="zoom-in"
-                className="py-4 px-12 mx-6 bg-[#515151] rounded-full text-white text-[24px]"
+                className="py-4 px-8 mx-4 bg-[#515151] rounded-full text-white text-lg font-medium"
                 key={index}
               >
                 {name}
