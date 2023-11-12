@@ -1,7 +1,7 @@
 function AboutSection() {
   return (
-    <div className="flex flex-row gap-12 p-[42px]">
-      <img className="h-[24rem]" src="/assets/images/home_ill.png" />
+    <div className="flex flex-col md:flex-row gap-12 p-[42px]">
+      <img className="md:max-w-[32rem]" src="/assets/images/home_ill.png" />
       <div className="flex flex-col gap-8 justify-center">
         <div>
           <h1 className="font-bold text-2xl">

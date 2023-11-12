@@ -11,7 +11,7 @@ function Navigation({ active }) {
   };
 
   return (
-    <nav className="bg-white fixed w-full z-20 top-0 left-0">
+    <nav className="bg-white/80 backdrop-blur-3xl fixed w-full z-20 top-0 left-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 px-[24px]">
         <Link to="/">
           <div className="flex items-center">
@@ -58,7 +58,7 @@ function Navigation({ active }) {
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-sticky"
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-[99px] bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
+          <ul className="flex flex-col p-4 md:p-0 mt-4 font-mediu md:flex-row md:space-x-8 md:mt-0 md:border-0">
             <li>
               <Link to="/">
                 <div

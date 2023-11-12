@@ -21,13 +21,13 @@ function HeroSection() {
       className="flex flex-col justify-center items-center relative"
     >
       <MapsIllustration color="#EEEEEE" />
-      <div data-aos="fade-down" className="absolute text-center mb-12">
-        <h1 className="text-[78px] leading-none font-extrabold">
+      <div data-aos="fade-down" className="absolute md:text-center mb-12 px-8">
+        <h1 className="text-4xl md:text-6xl leading-none font-extrabold">
           Sistem Administrasi Digital
           <br />
           Desa Ngubalan
         </h1>
-        <h3 className="text-[24px] mt-[18px]">
+        <h3 className="text-xl mt-[18px]">
           Mengurus surat online dengan mudah, cepat dan efisien
         </h3>
         <button
