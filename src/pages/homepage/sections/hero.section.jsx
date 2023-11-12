@@ -18,7 +18,7 @@ function HeroSection() {
   return (
     <div
       data-aos="fade-down"
-      className="container max-w-screen-xl flex flex-col justify-center items-center w-screen h-screen relative"
+      className="flex flex-col justify-center items-center relative"
     >
       <MapsIllustration color="#EEEEEE" />
       <div data-aos="fade-down" className="absolute text-center mb-12">
@@ -37,7 +37,7 @@ function HeroSection() {
           Urus sekarang
         </button>
       </div>
-      <div className="absolute bottom-14 w-full overflow-x-hidden">
+      <div className="absolute bottom-14 w-full">
         {Array.from({ length: 2 }, (_, index) => (
           <MarqueeElement
             key={index}
