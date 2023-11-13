@@ -4,8 +4,10 @@ import NavigationMenu from "./NavigationMenu";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import CustomAvatar from "./CustomAvatar";
-import { Menu, MenuItem } from "@mui/material";
+import { Divider, Menu, MenuItem } from "@mui/material";
 import { useGetUserProfileQuery } from "../redux/api/userApi";
+import { NavigationDropdown } from "./NavigationDropdown";
+import { cn } from "@/utils/cnc";
 
 function Navigation({ active }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,33 +45,11 @@ function Navigation({ active }) {
           {cookies.get("ACCESS-TOKEN") &&
           cookies.get("REFRESH-TOKEN") &&
           userSuccess ? (
-            <div className="mr-3">
-              <CustomAvatar name={userData.user.name} onClick={handleClick} />
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                  }}
-                >
-                  Akun saya
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                  }}
-                >
-                  Keluar
-                </MenuItem>
-              </Menu>
-            </div>
+            <NavigationDropdown
+              id="basic-menu"
+              name={userData.user.name}
+              email={userData.user.email}
+            />
           ) : (
             <Link to="/auth/signin">
               <button

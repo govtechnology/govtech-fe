@@ -1,13 +1,15 @@
+import { Input } from "@/components/cnc/ui/input";
 import PropTypes from "prop-types";
 import { useFormContext, Controller } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { Label } from "../cnc/ui/label";
 
 RHFTextField.propTypes = {
   name: PropTypes.string,
+  label: PropTypes.string,
   helperText: PropTypes.node,
 };
 
-export default function RHFTextField({ name, helperText, ...other }) {
+export default function RHFTextField({ name, label, helperText }) {
   const { control } = useFormContext();
 
   return (
@@ -15,18 +17,19 @@ export default function RHFTextField({ name, helperText, ...other }) {
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <TextField
-          {...field}
-          fullWidth
-          value={
-            typeof field.value === "number" && field.value === 0
-              ? ""
-              : field.value
-          }
-          error={!!error}
-          helperText={error ? error?.message : helperText}
-          {...other}
-        />
+        <>
+          <Label>{label}</Label>
+          <Input
+            {...field}
+            placeholder={helperText}
+            value={
+              typeof field.value === "number" && field.value === 0
+                ? ""
+                : field.value
+            }
+            error={!!error}
+          />
+        </>
       )}
     />
   );

@@ -10,10 +10,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Cookies from "universal-cookie";
 
 import { setCredentials } from "../../../redux/authSlices";
-import { LoadingButton } from "@mui/lab";
 
 import RHFTextField from "../../../components/hook-form/RHFTextField";
 import RHFProvider from "../../../components/hook-form/RHFProvider";
+import { Button } from "@/components/cnc/ui/button";
+import { Icons } from "@/components/Icons";
+import { cn } from "@/utils/cnc";
 
 const cookies = new Cookies();
 
@@ -70,33 +72,29 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className={"grid gap-6"}>
+    <div className={cn("grid gap-6")}>
       <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <RHFTextField name="email" label="Email" />
+            <RHFTextField
+              name="email"
+              label="Email"
+              helperText="Masukkan alamat email"
+            />
           </div>
           <div className="grid gap-1">
-            <RHFTextField name="password" label="Password" />
+            <RHFTextField
+              name="password"
+              label="Password"
+              helperText="Masukkan password"
+            />
           </div>
-          <LoadingButton
-            fullWidth
-            color="inherit"
-            size="large"
-            type="submit"
-            variant="contained"
-            loading={buttonLoading}
-            sx={{
-              bgcolor: "#000000",
-              color: "#FFFFFF",
-              "&:hover": {
-                bgcolor: "#000000",
-                color: "#FFFFFF",
-              },
-            }}
-          >
-            Login
-          </LoadingButton>
+          <Button disabled={buttonLoading}>
+            {buttonLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            Sign In
+          </Button>
         </div>
       </RHFProvider>
     </div>

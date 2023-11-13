@@ -1,40 +1,35 @@
-import { combineReducers } from 'redux';
-import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
-import authReducer from './authSlices';
-import { baseApi } from './axiosBaseQuery';
+import { combineReducers } from "redux";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import authReducer from "./authSlices";
+import { baseApi } from "./axiosBaseQuery";
 
 export const createNoopStorage = () => ({
-    getItem() {
-        return Promise.resolve(null);
-    },
-    setItem(_key, value) {
-        return Promise.resolve(value);
-    },
-    removeItem() {
-        return Promise.resolve();
-    },
+  getItem() {
+    return Promise.resolve(null);
+  },
+  setItem(_key, value) {
+    return Promise.resolve(value);
+  },
+  removeItem() {
+    return Promise.resolve();
+  },
 });
 
 export const storage =
-    typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
 
 export const rootPersistConfig = {
-    key: 'root',
-    storage,
-    keyPrefix: 'redux-',
-    whitelist: [],
-};
-
-export const productPersistConfig = {
-    key: 'product',
-    storage,
-    keyPrefix: 'redux-',
-    whitelist: ['sortBy', 'checkout'],
+  key: "root",
+  storage,
+  keyPrefix: "redux-",
+  whitelist: [],
 };
 
 const rootReducer = combineReducers({
-    [baseApi.reducerPath]: baseApi.reducer,
-    auth: authReducer,
+  [baseApi.reducerPath]: baseApi.reducer,
+  auth: authReducer,
 });
 
 export default rootReducer;
