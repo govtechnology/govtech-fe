@@ -6,11 +6,10 @@ import Cookies from "universal-cookie";
 import CustomAvatar from "./CustomAvatar";
 import { Menu, MenuItem } from "@mui/material";
 import { useGetUserProfileQuery } from "../redux/api/userApi";
-import { useSelector } from "react-redux";
 
 function Navigation({ active }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { data } = useGetUserProfileQuery();
+  const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -41,9 +40,11 @@ function Navigation({ active }) {
         </Link>
 
         <div className="flex md:order-2">
-          {cookies.get("ACCESS-TOKEN") && cookies.get("REFRESH-TOKEN") ? (
+          {cookies.get("ACCESS-TOKEN") &&
+          cookies.get("REFRESH-TOKEN") &&
+          userSuccess ? (
             <div className="mr-3">
-              <CustomAvatar onClick={handleClick} />
+              <CustomAvatar name={userData.user.name} onClick={handleClick} />
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
