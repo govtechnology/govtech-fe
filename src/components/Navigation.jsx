@@ -2,12 +2,29 @@
 import { useState } from "react";
 import NavigationMenu from "./NavigationMenu";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+import CustomAvatar from "./CustomAvatar";
+import { Menu, MenuItem } from "@mui/material";
+import { useGetUserProfileQuery } from "../redux/api/userApi";
+import { useSelector } from "react-redux";
 
 function Navigation({ active }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data } = useGetUserProfileQuery();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const cookies = new Cookies();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -24,14 +41,44 @@ function Navigation({ active }) {
         </Link>
 
         <div className="flex md:order-2">
-          <Link to="/auth/signin">
-            <button
-              type="button"
-              className=" text-primary font-medium rounded-[99px] border-primary border-[1px] text-sm px-[35px] py-2 mx-2 text-center mr-3 hover:bg-primary hover:text-white md:mr-0"
-            >
-              Masuk
-            </button>
-          </Link>
+          {cookies.get("ACCESS-TOKEN") && cookies.get("REFRESH-TOKEN") ? (
+            <div className="mr-3">
+              <CustomAvatar onClick={handleClick} />
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  Akun saya
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  Keluar
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Link to="/auth/signin">
+              <button
+                type="button"
+                className=" text-primary font-medium rounded-[99px] border-primary border-[1px] text-sm px-[35px] py-2 mx-2 text-center mr-3 hover:bg-primary hover:text-white md:mr-0"
+              >
+                Masuk
+              </button>
+            </Link>
+          )}
 
           <button
             onClick={toggleMobileMenu}
