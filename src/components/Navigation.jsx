@@ -34,9 +34,7 @@ function Navigation({ active }) {
         <Link to="/">
           <div className="flex items-center">
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-primary leading-none">
-              ngubalan
-              <br />
-              daring
+              <img className="w-[159px]" src="/assets/images/main_logo.png" />
             </span>
           </div>
         </Link>
