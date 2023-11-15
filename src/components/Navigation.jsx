@@ -30,8 +30,8 @@ function Navigation({ active }) {
 
   return (
     <nav className="bg-white/80 backdrop-blur-3xl fixed w-full z-20 top-0 left-0">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 px-[24px]">
-        <Link to="/">
+      <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 px-[24px]">
+        <Link className="flex-grow" to="/">
           <div className="flex items-center">
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-primary leading-none">
               <img className="w-[159px]" src="/assets/images/main_logo.png" />
@@ -84,7 +84,7 @@ function Navigation({ active }) {
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-sticky"
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-mediu md:flex-row md:space-x-8 md:mt-0 md:border-0">
+          <ul className="flex flex-col p-4 md:p-0 mt-4 mr-4 font-mediu md:flex-row md:space-x-8 md:mt-0 md:border-0">
             <li>
               <Link to="/">
                 <div
