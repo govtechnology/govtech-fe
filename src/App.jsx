@@ -11,6 +11,7 @@ import BaseLayout from "./components/BaseLayout";
 import LoginPage from "./pages/auth/LoginPage";
 import NoPage from "./pages/general/NoPage";
 import DashboardPage from "./pages/user/dashboard/DashboardPage";
+import SignUpPage from "./pages/auth/SignUpPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ function App() {
           ) : null}
         </Route>
         <Route path="/auth/signin" element={<LoginPage />} />
+        <Route path="/auth/signup" element={<SignUpPage />} />
 
         <Route path="*" element={<NoPage />} />
       </Routes>
