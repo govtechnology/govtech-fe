@@ -10,13 +10,16 @@ import {
   DropdownMenuTrigger,
 } from "./cnc/ui/dropdown-menu";
 import { Link } from "react-router-dom";
-import { Avatar } from "./cnc/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./cnc/ui/avatar";
 
 export function NavigationDropdown({ name, email }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className={cn("mr-3")} />
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
@@ -29,10 +32,9 @@ export function NavigationDropdown({ name, email }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>FAQ</DropdownMenuItem>
+          <DropdownMenuItem>Pengaturan akun</DropdownMenuItem>
+          <DropdownMenuItem>Log out</DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

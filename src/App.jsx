@@ -8,6 +8,7 @@ import "aos/dist/aos.css";
 import BaseLayout from "./components/BaseLayout";
 import LoginPage from "./pages/auth/LoginPage";
 import NoPage from "./pages/general/NoPage";
+import DashboardPage from "./pages/user/dashboard/DashboardPage";
 
 function App() {
   useEffect(() => {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
         <Route path="/auth/signin" element={<LoginPage />} />
         <Route path="*" element={<NoPage />} />
