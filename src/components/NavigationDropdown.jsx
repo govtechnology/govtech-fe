@@ -1,5 +1,4 @@
 import { cn } from "@/utils/cnc";
-import CustomAvatar from "./CustomAvatar";
 import { Button } from "./cnc/ui/button";
 import {
   DropdownMenu,
@@ -8,16 +7,16 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./cnc/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { Avatar } from "./cnc/ui/avatar";
 
 export function NavigationDropdown({ name, email }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <CustomAvatar className={cn("mr-3")} name={name} />
+        <Avatar className={cn("mr-3")} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
@@ -30,16 +29,10 @@ export function NavigationDropdown({ name, email }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            FAQ
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <DropdownMenuItem>FAQ</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuItem>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

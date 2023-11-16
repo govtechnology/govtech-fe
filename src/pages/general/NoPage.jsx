@@ -1,4 +1,5 @@
 import { Button } from "@/components/cnc/ui/button";
+import { Link } from "react-router-dom";
 
 const NoPage = () => {
   return (
@@ -13,7 +14,9 @@ const NoPage = () => {
         Hubungi melalui email desangubalan@gmail.com / <br />
         telp 084 73679 5442
       </p>
-      <Button className="mt-8">Kembali ke halaman utama</Button>
+      <Link to="/">
+        <Button className="mt-8">Kembali ke halaman utama</Button>
+      </Link>
     </div>
   );
 };

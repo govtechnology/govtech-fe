@@ -1,18 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import NavigationMenu from "./NavigationMenu";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { useGetUserProfileQuery } from "../redux/api/userApi";
 import { NavigationDropdown } from "./NavigationDropdown";
 
 function Navigation({ active }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
 
   const cookies = new Cookies();
 
@@ -46,26 +39,6 @@ function Navigation({ active }) {
               </button>
             </Link>
           )}
-
-          <button
-            onClick={toggleMobileMenu}
-            className="flex items-center justify-center h-10 w-10 text-primary rounded-[99px] border-primary border-[1px] md:hidden"
-          >
-            <svg
-              className="w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
         </div>
 
         <div
@@ -85,13 +58,13 @@ function Navigation({ active }) {
               </Link>
             </li>
             <li>
-              <Link to="/status">
+              <Link to="/about">
                 <div
                   className={`block py-2 pl-3 pr-4 ${
                     active === "/donate" ? "text-primary" : "text-gray-900"
                   } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary md:p-0`}
                 >
-                  Cek Status
+                  Tentang Kami
                 </div>
               </Link>
             </li>
@@ -102,15 +75,13 @@ function Navigation({ active }) {
                     active === "/about" ? "text-primary" : "text-gray-900"
                   } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary md:p-0`}
                 >
-                  Pertanyaan Umum
+                  Bantuan
                 </div>
               </Link>
             </li>
           </ul>
         </div>
       </div>
-
-      <NavigationMenu isOpen={isMobileMenuOpen} />
     </nav>
   );
 }

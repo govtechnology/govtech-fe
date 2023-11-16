@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import NavigationMobile from "./NavigationMobile";
 
 function BaseLayout() {
   return (
@@ -8,6 +9,7 @@ function BaseLayout() {
       <Navigation />
       <Outlet />
       <Footer />
+      <NavigationMobile />
     </>
   );
 }

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-white">
+    <footer className="bg-white md:mb-0 mb-24">
       <div className="mx-auto w-full max-w-screen-xl px-[32px] py-6">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0 max-w-[300px]">
@@ -45,8 +45,8 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link href="/status" className="hover:underline">
-                    Cek Status
+                  <Link href="/about" className="hover:underline">
+                    Tentang Kami
                   </Link>
                 </li>
                 <li className="mb-4">
