@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../redux/api/authApi";
-import { useNavigate } from "react-router-dom";
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -85,6 +84,7 @@ export const LoginForm = () => {
             <RHFTextField
               name="password"
               label="Password"
+              type="password"
               helperText="Masukkan password"
             />
           </div>

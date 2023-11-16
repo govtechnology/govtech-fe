@@ -1,4 +1,3 @@
-import { Badge } from "@/components/cnc/ui/badge";
 import { Skeleton } from "@/components/cnc/ui/skeleton";
 import {
   Tabs,
@@ -7,11 +6,14 @@ import {
   TabsTrigger,
 } from "@/components/cnc/ui/tabs";
 import { useGetUserProfileQuery } from "@/redux/api/userApi";
-import { cn } from "@/utils/cnc";
 import RecentCertificateItem from "./components/RecentCertificateItem";
+import { useGetUserCertificateQuery } from "@/redux/api/certificateApi";
+import StatusCertificateItem from "./components/StatusCertificateItem";
 
 function DashboardPage() {
   const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
+  const { data: certificateData, isSuccess: certificateSuccess } =
+    useGetUserCertificateQuery();
 
   return (
     <div
@@ -71,7 +73,27 @@ function DashboardPage() {
           </div>
         </TabsContent>
         <TabsContent value="request">Container Urus Surat</TabsContent>
-        <TabsContent value="check">Container Cek Status</TabsContent>
+        <TabsContent value="check">
+          <div className="flex justify-center flex-col w-full h-full border border-gray-100 rounded-lg p-8">
+            <div className="flex flex-col gap-8">
+              {certificateSuccess ? (
+                certificateData.certificate.map((certificate, index) => (
+                  <>
+                    {console.log(certificate)}
+                    <StatusCertificateItem
+                      key={index}
+                      skType={certificate.skType}
+                      requestDate={certificate.requestDate}
+                      status={certificate.skStatus}
+                    />
+                  </>
+                ))
+              ) : (
+                <Skeleton className="h-12 w-[224px] rounded-lg" />
+              )}
+            </div>
+          </div>
+        </TabsContent>
       </Tabs>
     </div>
   );
