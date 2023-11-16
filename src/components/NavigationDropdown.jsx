@@ -1,5 +1,3 @@
-import { cn } from "@/utils/cnc";
-import { Button } from "./cnc/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,10 +7,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./cnc/ui/dropdown-menu";
-import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./cnc/ui/avatar";
+import { useDispatch } from "@/redux/store";
+import { logOut } from "@/redux/authSlices";
+import { useNavigate } from "react-router-dom";
 
 export function NavigationDropdown({ name, email }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,7 +36,14 @@ export function NavigationDropdown({ name, email }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>Pengaturan akun</DropdownMenuItem>
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={async () => {
+              dispatch(logOut());
+              navigate("/");
+            }}
+          >
+            Log out
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
