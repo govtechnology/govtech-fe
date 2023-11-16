@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,3 +51,8 @@ export function NavigationDropdown({ name, email }) {
     </DropdownMenu>
   );
 }
+
+NavigationDropdown.propTypes = {
+  name: PropTypes.string,
+  email: PropTypes.string,
+};

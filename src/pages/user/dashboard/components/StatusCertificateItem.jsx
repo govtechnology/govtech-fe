@@ -1,6 +1,13 @@
 import { Badge } from "@/components/cnc/ui/badge";
 import { cn } from "@/utils/cnc";
 import { formatDate } from "@/utils/dateFormatter";
+import PropTypes from "prop-types";
+
+StatusCertificateItem.propTypes = {
+  requestDate: PropTypes.string,
+  status: PropTypes.string,
+  skType: PropTypes.string,
+};
 
 function StatusCertificateItem({ skType, requestDate, status }) {
   return (

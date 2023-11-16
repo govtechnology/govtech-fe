@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 function NavigationMobileItem({ to, icon }) {
@@ -12,5 +13,10 @@ function NavigationMobileItem({ to, icon }) {
     </Link>
   );
 }
+
+NavigationMobileItem.propTypes = {
+  to: PropTypes.string,
+  icon: PropTypes.string,
+};
 
 export default NavigationMobileItem;

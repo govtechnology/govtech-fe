@@ -1,4 +1,9 @@
-/* eslint-disable react/prop-types */
+import PropTypes from "prop-types";
+
+MapsIllustration.propTypes = {
+  color: PropTypes.string,
+};
+
 function MapsIllustration({ color }) {
   return (
     <div className="relative  md:overflow-hidden">

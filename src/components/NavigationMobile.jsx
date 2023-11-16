@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import Cookies from "universal-cookie";
 import NavigationMobileItem from "./NavigationMobileItem";
 

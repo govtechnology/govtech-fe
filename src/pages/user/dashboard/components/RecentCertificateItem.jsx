@@ -1,5 +1,12 @@
 import { Badge } from "@/components/cnc/ui/badge";
 import { cn } from "@/utils/cnc";
+import PropTypes from "prop-types";
+
+RecentCertificateItem.propTypes = {
+  requestDate: PropTypes.string,
+  approveDate: PropTypes.string,
+  skType: PropTypes.string,
+};
 
 function RecentCertificateItem({ requestDate, approveDate, skType }) {
   return (

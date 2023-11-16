@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { useGetUserProfileQuery } from "../redux/api/userApi";
 import { NavigationDropdown } from "./NavigationDropdown";
 
-function Navigation({ active }) {
+function Navigation() {
   const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
 
   const cookies = new Cookies();
@@ -48,33 +47,21 @@ function Navigation({ active }) {
           <ul className="flex flex-col p-4 md:p-0 mt-4 mr-4 font-mediu md:flex-row md:space-x-8 md:mt-0 md:border-0">
             <li>
               <Link to="/">
-                <div
-                  className={`block py-2 pl-3 pr-4 ${
-                    active === "/" ? "text-primary" : "text-gray-900"
-                  } rounded md:bg-transparent md:hover:text-primary md:p-0`}
-                >
+                <div className={`block py-2 pl-3 pr-4 text-gray-900`}>
                   Beranda
                 </div>
               </Link>
             </li>
             <li>
               <Link to="/about">
-                <div
-                  className={`block py-2 pl-3 pr-4 ${
-                    active === "/donate" ? "text-primary" : "text-gray-900"
-                  } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary md:p-0`}
-                >
+                <div className={`block py-2 pl-3 pr-4 text-gray-900`}>
                   Tentang Kami
                 </div>
               </Link>
             </li>
             <li>
               <Link to="/faq">
-                <div
-                  className={`block py-2 pl-3 pr-4 ${
-                    active === "/about" ? "text-primary" : "text-gray-900"
-                  } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary md:p-0`}
-                >
+                <div className={`block py-2 pl-3 pr-4 text-gray-900`}>
                   Bantuan
                 </div>
               </Link>
@@ -82,11 +69,7 @@ function Navigation({ active }) {
             {cookies.get("ACCESS-TOKEN") && cookies.get("REFRESH-TOKEN") ? (
               <li>
                 <Link to="/dashboard">
-                  <div
-                    className={`block py-2 pl-3 pr-4 ${
-                      active === "/about" ? "text-primary" : "text-gray-900"
-                    } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary md:p-0`}
-                  >
+                  <div className={`block py-2 pl-3 pr-4 text-gray-900`}>
                     Dashboard
                   </div>
                 </Link>
