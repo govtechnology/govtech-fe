@@ -3,11 +3,8 @@ import { useState } from "react";
 import NavigationMenu from "./NavigationMenu";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
-import CustomAvatar from "./CustomAvatar";
-import { Divider, Menu, MenuItem } from "@mui/material";
 import { useGetUserProfileQuery } from "../redux/api/userApi";
 import { NavigationDropdown } from "./NavigationDropdown";
-import { cn } from "@/utils/cnc";
 
 function Navigation({ active }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,15 +15,6 @@ function Navigation({ active }) {
   };
 
   const cookies = new Cookies();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <nav className="bg-white/80 backdrop-blur-3xl fixed w-full z-20 top-0 left-0">
