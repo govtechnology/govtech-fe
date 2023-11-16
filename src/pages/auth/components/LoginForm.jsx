@@ -55,7 +55,6 @@ export const LoginForm = () => {
             REFRESH_TOKEN: res.refresh_token,
           })
         );
-        console.log(res);
         cookies.set("ACCESS-TOKEN", res.access_token, {
           path: "/",
         });

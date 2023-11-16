@@ -8,6 +8,7 @@ import {
 import { useGetUserProfileQuery } from "@/redux/api/userApi";
 import CheckTab from "./tabs/CheckTab";
 import OverviewTab from "./tabs/OverviewTab";
+import RequestTab from "./tabs/RequestTab";
 
 function DashboardPage() {
   const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
@@ -35,7 +36,9 @@ function DashboardPage() {
         <TabsContent value="overview">
           <OverviewTab />
         </TabsContent>
-        <TabsContent value="request">Container Urus Surat</TabsContent>
+        <TabsContent value="request">
+          <RequestTab />
+        </TabsContent>
         <TabsContent value="check">
           <CheckTab />
         </TabsContent>

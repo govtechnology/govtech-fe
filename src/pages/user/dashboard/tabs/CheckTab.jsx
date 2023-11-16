@@ -15,7 +15,6 @@ function CheckTab() {
         {certificateSuccess ? (
           certificateData.certificate.map((certificate, index) => (
             <>
-              {console.log(certificate)}
               <StatusCertificateItem
                 key={index}
                 skType={certificate.skType}
