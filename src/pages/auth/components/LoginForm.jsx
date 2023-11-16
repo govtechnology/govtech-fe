@@ -33,7 +33,6 @@ export const LoginForm = () => {
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
@@ -64,7 +63,7 @@ export const LoginForm = () => {
         cookies.set("REFRESH-TOKEN", res.refresh_token, {
           path: "/",
         });
-        navigate("/");
+        window.location.href = "/";
       })
       .finally(() => {
         setButtonLoading(false);

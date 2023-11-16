@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Cookies from "universal-cookie";
+
 import HomePage from "./pages/homepage/HomePage";
 import FaqPage from "./pages/faq/FaqPage";
 
@@ -11,8 +13,14 @@ import NoPage from "./pages/general/NoPage";
 import DashboardPage from "./pages/user/dashboard/DashboardPage";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const cookies = new Cookies();
+
   useEffect(() => {
     AOS.init();
+    if (cookies.get("ACCESS-TOKEN") && cookies.get("REFRESH-TOKEN")) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   return (
@@ -21,9 +29,12 @@ function App() {
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/faq" element={<FaqPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          {isLoggedIn ? (
+            <Route path="/dashboard" element={<DashboardPage />} />
+          ) : null}
         </Route>
         <Route path="/auth/signin" element={<LoginPage />} />
+
         <Route path="*" element={<NoPage />} />
       </Routes>
     </div>

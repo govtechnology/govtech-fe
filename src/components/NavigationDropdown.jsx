@@ -40,6 +40,7 @@ export function NavigationDropdown({ name, email }) {
             onClick={async () => {
               dispatch(logOut());
               navigate("/");
+              window.location.href = "/";
             }}
           >
             Log out
