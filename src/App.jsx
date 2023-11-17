@@ -12,6 +12,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import NoPage from "./pages/general/NoPage";
 import DashboardPage from "./pages/user/dashboard/DashboardPage";
 import SignUpPage from "./pages/auth/SignUpPage";
+import ProfilePage from "./pages/user/profile/ProfilePage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,7 +32,10 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/faq" element={<FaqPage />} />
           {isLoggedIn ? (
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/dashboard/profile" element={<ProfilePage />} />
+            </>
           ) : null}
         </Route>
         <Route path="/auth/signin" element={<LoginPage />} />

@@ -4,7 +4,6 @@ import {
   VTabsList,
   VTabsTrigger,
 } from "@/components/VerticalTabs";
-import { Input } from "@/components/cnc/ui/input";
 import SKIKFormContainer from "../form/SKIKFormContainer";
 
 function RequestTab() {

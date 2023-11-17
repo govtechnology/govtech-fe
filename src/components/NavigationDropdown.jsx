@@ -36,11 +36,16 @@ export function NavigationDropdown({ name, email }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Pengaturan akun</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={async () => {
+              navigate("/dashboard/profile");
+            }}
+          >
+            Pengaturan akun
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={async () => {
               dispatch(logOut());
-              navigate("/");
               window.location.href = "/";
             }}
           >
