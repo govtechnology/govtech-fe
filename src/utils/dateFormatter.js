@@ -11,3 +11,15 @@ export function formatDate(dateString) {
 
   return formattedDate;
 }
+
+export function formatDateNoTime(dateString) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString("id-ID", options);
+
+  return formattedDate;
+}

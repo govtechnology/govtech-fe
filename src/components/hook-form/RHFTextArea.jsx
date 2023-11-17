@@ -1,7 +1,7 @@
 import { Textarea } from "../cnc/ui/textarea";
 import PropTypes from "prop-types";
 import { useFormContext, Controller } from "react-hook-form";
-import { Label } from "../cnc/ui/label";
+import { FormLabel } from "../cnc/ui/form";
 
 RHFTextArea.propTypes = {
   name: PropTypes.string,
@@ -20,7 +20,7 @@ export default function RHFTextArea({ name, label, helperText }) {
         render={({ field, fieldState: { error } }) => (
           <>
             <div className="mb-1">
-              <Label>{label}</Label>
+              <FormLabel>{label}</FormLabel>
             </div>
             <Textarea
               {...field}

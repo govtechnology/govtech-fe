@@ -8,6 +8,8 @@ import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
 import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
+import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
+import { formatDateNoTime } from "@/utils/dateFormatter";
 
 const SKIKSchema = Yup.object().shape({
   nikOrtu: Yup.string().required("NIK Ortu is required"),
@@ -22,7 +24,7 @@ const SKIKSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
   nama: Yup.string().required("Nama is required"),
   tempat_lahir: Yup.string().required("Tempat Lahir is required"),
-  tanggal_lahir: Yup.string().required("Tanggal Lahir is required"),
+  tanggal_lahir: Yup.date().required("Tanggal Lahir is required"),
   alamat: Yup.string().required("Alamat is required"),
   destination: Yup.string().required("Destination is required"),
 });
@@ -63,11 +65,13 @@ function SKIKFormContainer() {
       skData: {
         nikOrtu: data.nikOrtu,
         namaOrtu: data.namaOrtu,
-        ttlOrtu: data.tempat_lahir_ortu + data.tanggal_lahir_ortu,
+        ttlOrtu: `${data.tempat_lahir_ortu}, ${formatDateNoTime(
+          data.tanggal_lahir_ortu
+        )}`,
         alamatOrtu: data.alamatOrtu,
         nik: data.nik,
         nama: data.nama,
-        ttl: data.tempat_lahir + data.tanggal_lahir,
+        ttl: `${data.tempat_lahir}, ${formatDateNoTime(data.tanggal_lahir)}`,
         alamat: data.alamat,
         destination: data.destination,
       },
@@ -103,7 +107,7 @@ function SKIKFormContainer() {
                 helperText="Tempat lahir orang tua"
                 label="Tempat Lahir Orang Tua"
               />
-              <RHFTextField
+              <RHFDatePicker
                 name="tanggal_lahir_ortu"
                 helperText="dd/mm/yy"
                 label="Tanggal Lahir"
@@ -132,7 +136,7 @@ function SKIKFormContainer() {
                 helperText="Tempat lahir anda"
                 label="Tempat Lahir"
               />
-              <RHFTextField
+              <RHFDatePicker
                 name="tanggal_lahir"
                 helperText="dd/mm/yy"
                 label="Tanggal Lahir"
