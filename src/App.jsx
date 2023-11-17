@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-import HomePage from "./pages/homepage/HomePage";
-import FaqPage from "./pages/faq/FaqPage";
+import HomePage from "./pages/public/homepage/HomePage";
+import FaqPage from "./pages/public/faq/FaqPage";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 import BaseLayout from "./components/BaseLayout";
-import LoginPage from "./pages/auth/LoginPage";
-import NoPage from "./pages/general/NoPage";
+import LoginPage from "./pages/public/auth/LoginPage";
+import NoPage from "./pages/public/general/NoPage";
 import DashboardPage from "./pages/user/dashboard/DashboardPage";
-import SignUpPage from "./pages/auth/SignUpPage";
+import SignUpPage from "./pages/public/auth/SignUpPage";
 import ProfilePage from "./pages/user/profile/ProfilePage";
 
 function App() {

@@ -1,33 +1,37 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useCreateMutation } from "../../../redux/api/authApi";
+import { useLoginMutation } from "../../../../redux/api/authApi";
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import RHFTextField from "../../../components/hook-form/RHFTextField";
-import RHFProvider from "../../../components/hook-form/RHFProvider";
+import Cookies from "universal-cookie";
+
+import { setCredentials } from "../../../../redux/authSlices";
+
+import RHFTextField from "../../../../components/hook-form/RHFTextField";
+import RHFProvider from "../../../../components/hook-form/RHFProvider";
 import { Button } from "@/components/cnc/ui/button";
 import { Icons } from "@/components/Icons";
 import { cn } from "@/utils/cnc";
-import { useNavigate } from "react-router-dom";
+
+const cookies = new Cookies();
 
 const LoginSchema = Yup.object().shape({
-  name: Yup.string().required("Nama diperlukan"),
-  email: Yup.string().required("Email diperlukan"),
-  password: Yup.string().required("Password diperlukan"),
+  email: Yup.string().required("Email is required"),
+  password: Yup.string().required("Password is required"),
 });
-
 const defaultValues = {
-  name: "",
   email: "",
   password: "",
 };
 
-export const SignUpForm = () => {
-  const [signupMutation] = useCreateMutation();
+export const LoginForm = () => {
+  const [loginMutation] = useLoginMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
-  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
@@ -42,9 +46,22 @@ export const SignUpForm = () => {
 
   const onSubmit = async (data) => {
     setButtonLoading(true);
-    signupMutation({ data })
-      .then(() => {
-        navigate("/auth/signin");
+    loginMutation({ data })
+      .unwrap()
+      .then((res) => {
+        dispatch(
+          setCredentials({
+            ACCESS_TOKEN: res.access_token,
+            REFRESH_TOKEN: res.refresh_token,
+          })
+        );
+        cookies.set("ACCESS-TOKEN", res.access_token, {
+          path: "/",
+        });
+        cookies.set("REFRESH-TOKEN", res.refresh_token, {
+          path: "/",
+        });
+        window.location.href = "/";
       })
       .finally(() => {
         setButtonLoading(false);
@@ -55,13 +72,6 @@ export const SignUpForm = () => {
     <div className={cn("grid gap-6")}>
       <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
-          <div className="grid gap-1">
-            <RHFTextField
-              name="name"
-              label="Name"
-              helperText="Masukkan nama lengkap"
-            />
-          </div>
           <div className="grid gap-1">
             <RHFTextField
               name="email"
@@ -81,7 +91,7 @@ export const SignUpForm = () => {
             {buttonLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign Up
+            Sign In
           </Button>
         </div>
       </RHFProvider>

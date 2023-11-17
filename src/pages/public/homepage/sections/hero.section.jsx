@@ -1,4 +1,4 @@
-import MarqueeElement from "../../../components/Marquee";
+import MarqueeElement from "../../../../components/Marquee";
 import MapsIllustration from "../components/MapsIllustration";
 import RequestCertButton from "../components/RequestCertButton";
 
