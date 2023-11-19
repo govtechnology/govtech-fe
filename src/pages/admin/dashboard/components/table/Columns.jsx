@@ -9,11 +9,16 @@ import {
 } from "@/components/cnc/ui/dropdown-menu";
 import { formatDate } from "@/utils/dateFormatter";
 import { MoreHorizontal } from "lucide-react";
+import { DataTableColumnHeader } from "./DataTableColumnHeader";
+import { skStatuses } from "../../constant/SKStatus";
 
 export const columns = [
   {
+    id: "nama",
     accessorKey: "skData.nama",
-    header: "Nama Lengkap",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Nama Lengkap" />
+    ),
   },
   {
     accessorKey: "skType",
@@ -21,11 +26,39 @@ export const columns = [
   },
   {
     accessorKey: "skStatus",
-    header: "Status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const status = skStatuses.find(
+        (status) => status.value === row.getValue("skStatus")
+      );
+
+      if (!status) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          {status.icon && (
+            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+          )}
+          <span>{status.label}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "requestDate",
-    header: () => <div>Tanggal & Waktu Permintaan</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Tanggal & Waktu Permintaan"
+      />
+    ),
     cell: ({ row }) => {
       const date = row.getValue("requestDate");
       return <div>{formatDate(date)}</div>;
