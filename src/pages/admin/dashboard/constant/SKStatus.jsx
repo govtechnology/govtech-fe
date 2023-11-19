@@ -1,7 +1,7 @@
 export const skStatuses = [
   {
     value: "VERIFY",
-    label: "Sedang Diverifikasi",
+    label: "Perlu Diverifikasi",
   },
   {
     value: "DONE",
