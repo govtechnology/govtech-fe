@@ -36,7 +36,6 @@ export default function RHFDatePicker({ name, label, helperText }) {
                     !field.value && "text-muted-foreground"
                   )}
                 >
-                  {console.log(field.value)}
                   {field.value ? (
                     <span>{formatDateNoTime(field.value)}</span>
                   ) : (
