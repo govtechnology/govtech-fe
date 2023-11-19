@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button } from "@/components/cnc/ui/button";
 import {
   DropdownMenu,

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Input } from "@/components/cnc/ui/input";
 import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
 import { Button } from "@/components/cnc/ui/button";

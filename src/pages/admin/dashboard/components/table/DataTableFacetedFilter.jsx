@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Badge } from "@/components/cnc/ui/badge";
 import { Button } from "@/components/cnc/ui/button";
 import {

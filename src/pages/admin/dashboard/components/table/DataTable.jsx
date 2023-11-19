@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 "use client";
 
 import {
@@ -19,9 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/cnc/ui/table";
-import { Button } from "@/components/cnc/ui/button";
 import { useState } from "react";
-import { Input } from "@/components/cnc/ui/input";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
@@ -84,7 +83,7 @@ export function DataTable({ columns, data }) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "dipilih"}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
