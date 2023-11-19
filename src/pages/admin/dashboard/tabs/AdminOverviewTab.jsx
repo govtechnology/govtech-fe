@@ -95,7 +95,7 @@ function AdminOverviewTab() {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="flex justify-center items-center flex-col w-full h-full max-w-4xl border border-gray-100 rounded-lg p-8">
+        <div className="flex justify-center items-center flex-col w-full md:w-[60%] h-full max-w-4xl border border-gray-100 rounded-lg p-8">
           <div className="w-full mb-8">
             <h6 className="font-bold text-lg text-start">
               Statistik Permintaan Surat
@@ -121,24 +121,26 @@ function AdminOverviewTab() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex justify-center flex-col w-full h-full border border-gray-100 rounded-lg p-8">
+        <div className="flex justify-center flex-col w-full md:w-[40%] h-full border border-gray-100 rounded-lg p-8">
           <div>
             <h6 className="font-bold text-lg">Permintaan Surat Terbaru</h6>
             <h6>Permintaan surat yang belum di verifikasi</h6>
           </div>
           <div className="flex flex-col gap-8 mt-8">
             {isSuccess ? (
-              certificateData.certificate.map((certificate, index) => (
-                <>
-                  <RecentRequestCertificateItem
-                    key={index}
-                    skType={certificate.skType}
-                    name={certificate.skData.nama}
-                    email="xyzuannihboss@gmail.com"
-                    requestDate={certificate.requestDate}
-                  />
-                </>
-              ))
+              certificateData.certificate
+                .slice(0, 4)
+                .map((certificate, index) => (
+                  <>
+                    <RecentRequestCertificateItem
+                      key={index}
+                      skType={certificate.skType}
+                      name={certificate.skData.nama}
+                      email="xyzuannihboss@gmail.com"
+                      requestDate={certificate.requestDate}
+                    />
+                  </>
+                ))
             ) : (
               <Skeleton className="h-12 w-[224px] rounded-lg" />
             )}
