@@ -4,7 +4,7 @@ import { baseApi } from "../axiosBaseQuery";
 export const userApi = baseApi.enhanceEndpoints({}).injectEndpoints({
   endpoints(builder) {
     return {
-      getUserProfile: builder.query({
+      getUser: builder.query({
         query: () => ({
           url: `/user`,
           method: "GET",
@@ -15,4 +15,4 @@ export const userApi = baseApi.enhanceEndpoints({}).injectEndpoints({
   },
 });
 
-export const { useGetUserProfileQuery } = userApi;
+export const { useGetUserQuery } = userApi;

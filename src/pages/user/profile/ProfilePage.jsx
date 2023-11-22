@@ -4,8 +4,9 @@ import {
   VTabsList,
   VTabsTrigger,
 } from "@/components/VerticalTabs";
+import GeneralTab from "./tabs/GeneralTab";
 
-function ProfilePage() {
+export default function ProfilePage() {
   return (
     <div
       data-aos="fade-down"
@@ -22,11 +23,9 @@ function ProfilePage() {
           <VTabsTrigger value="general">Informasi Umum</VTabsTrigger>
         </VTabsList>
         <VTabsContent value="general">
-          <>p</>
+          <GeneralTab />
         </VTabsContent>
       </VTabs>
     </div>
   );
 }
-
-export default ProfilePage;

@@ -58,7 +58,7 @@ export const SignUpForm = () => {
           <div className="grid gap-1">
             <RHFTextField
               name="name"
-              label="Name"
+              label="Nama"
               helperText="Masukkan nama lengkap"
             />
           </div>

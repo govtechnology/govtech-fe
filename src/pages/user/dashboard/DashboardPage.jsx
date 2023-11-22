@@ -5,13 +5,14 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/cnc/ui/tabs";
-import { useGetUserProfileQuery } from "@/redux/api/userApi";
 import CheckTab from "./tabs/CheckTab";
 import OverviewTab from "./tabs/OverviewTab";
 import RequestTab from "./tabs/RequestTab";
+import { useGetUserProfileQuery } from "@/redux/api/userProfileApi";
 
 function DashboardPage() {
-  const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
+  const { data: userProfileData, isSuccess: userProfileSuccess } =
+    useGetUserProfileQuery();
 
   return (
     <div
@@ -19,9 +20,9 @@ function DashboardPage() {
       className="container max-w-screen-xl mt-32 mb-8 px-8"
     >
       <div className="mb-4">
-        {userSuccess ? (
+        {userProfileSuccess ? (
           <h3 className="font-bold text-2xl">
-            {"Halo, " + userData.user.name}
+            {"Halo, " + userProfileData.profile.name}
           </h3>
         ) : (
           <Skeleton className="h-12 w-[224px] rounded-lg" />

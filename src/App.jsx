@@ -13,12 +13,12 @@ import NoPage from "./pages/public/general/NoPage";
 import DashboardPage from "./pages/user/dashboard/DashboardPage";
 import SignUpPage from "./pages/public/auth/SignUpPage";
 import ProfilePage from "./pages/user/profile/ProfilePage";
-import { useGetUserProfileQuery } from "./redux/api/userApi";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
+import { useGetUserQuery } from "./redux/api/userApi";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
+  const { data: userData, isSuccess: userSuccess } = useGetUserQuery();
   const cookies = new Cookies();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function App() {
           <Route path="/faq" element={<FaqPage />} />
           {isLoggedIn && userSuccess ? (
             <>
-              {userData.user.role === "admin" ? (
+              {userData.user.role === "ADMIN" ? (
                 <Route path="/dashboard" element={<AdminDashboard />} />
               ) : (
                 <Route path="/dashboard" element={<DashboardPage />} />

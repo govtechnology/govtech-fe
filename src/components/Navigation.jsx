@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { useGetUserProfileQuery } from "../redux/api/userApi";
 import { NavigationDropdown } from "./NavigationDropdown";
+import { useGetUserQuery } from "@/redux/api/userApi";
+import { useGetUserProfileQuery } from "@/redux/api/userProfileApi";
 
 function Navigation() {
-  const { data: userData, isSuccess: userSuccess } = useGetUserProfileQuery();
+  const { data: userData, isSuccess: userDataSuccess } = useGetUserQuery();
+  const { data: userProfileData, isSuccess: userProfileSuccess } =
+    useGetUserProfileQuery();
 
   const cookies = new Cookies();
 
@@ -22,10 +25,11 @@ function Navigation() {
         <div className="flex md:order-2">
           {cookies.get("ACCESS-TOKEN") &&
           cookies.get("REFRESH-TOKEN") &&
-          userSuccess ? (
+          userDataSuccess &&
+          userProfileSuccess ? (
             <NavigationDropdown
               id="basic-menu"
-              name={userData.user.name}
+              name={userProfileData.profile.name}
               email={userData.user.email}
             />
           ) : (
