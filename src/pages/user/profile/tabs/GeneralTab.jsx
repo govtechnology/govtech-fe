@@ -36,13 +36,13 @@ function GeneralTab() {
     tempatLahir:
       userProfileData &&
       userProfileData.profile &&
-      userProfileData.profile.tempat_lahir
+      userProfileData.profile.tempatLahir
         ? userProfileData.profile.tempatLahir
         : null,
     tanggalLahir:
       userProfileData &&
       userProfileData.profile &&
-      userProfileData.profile.tanggal_lahir
+      userProfileData.profile.tanggalLahir
         ? userProfileData.profile.tanggalLahir
         : null,
     alamat:
