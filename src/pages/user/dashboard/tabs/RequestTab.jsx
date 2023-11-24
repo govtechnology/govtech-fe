@@ -5,6 +5,7 @@ import {
   VTabsTrigger,
 } from "@/components/VerticalTabs";
 import SKIKFormContainer from "../form/SKIKFormContainer";
+import SKTMFormContainer from "../form/SKTMFormContainer";
 
 function RequestTab() {
   return (
@@ -29,7 +30,7 @@ function RequestTab() {
           <SKIKFormContainer />
         </VTabsContent>
         <VTabsContent value="SKTM">
-          <>T2</>
+          <SKTMFormContainer />
         </VTabsContent>
         <VTabsContent value="SKMS">
           <>T3</>
