@@ -2,6 +2,7 @@ import { Button } from "@/components/cnc/ui/button";
 import { formatDate } from "@/utils/dateFormatter";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { skStatuses } from "../../constant/SKStatus";
+import DetailCertificateModal from "../DetailCertificateModal";
 
 export const columns = [
   {
@@ -58,18 +59,10 @@ export const columns = [
   {
     header: "Aksi",
     id: "actions",
-    cell: ({ table, row }) => {
+    cell: ({ row }) => {
       const id = row.original.id;
 
-      return (
-        <div>
-          <Button
-            onClick={() => table.options?.meta.handleOpenDetailsPanel(id)}
-          >
-            Details
-          </Button>
-        </div>
-      );
+      return <DetailCertificateModal id={id} />;
     },
   },
 ];

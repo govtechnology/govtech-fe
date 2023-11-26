@@ -24,10 +24,6 @@ import { useState } from "react";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
-function handleOpenDetailsPanel(nama) {
-  console.log(nama);
-}
-
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
@@ -42,9 +38,6 @@ export function DataTable({ columns, data }) {
       columnVisibility,
       rowSelection,
       columnFilters,
-    },
-    meta: {
-      handleOpenDetailsPanel: (id) => handleOpenDetailsPanel(id),
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
