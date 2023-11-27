@@ -1,7 +1,7 @@
 import { useGetUserCertificateQuery } from "@/redux/api/certificateApi";
-import { DataTable } from "../components/table/DataTable";
+import { DataTable } from "../components/table/AdminDataTable";
 import { Skeleton } from "@/components/cnc/ui/skeleton";
-import { columns } from "../components/table/Columns";
+import { columns } from "../components/table/AdminColumns";
 
 export default function VerificationPanelTab() {
   const { data: certificateData, isSuccess } = useGetUserCertificateQuery();

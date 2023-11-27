@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Input } from "@/components/cnc/ui/input";
-import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
+import { DataTableFacetedFilter } from "./AdminDataTableFacetedFilter";
 import { Button } from "@/components/cnc/ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { DataTableViewOptions } from "./DataTableViewOptions";
-import { skStatuses } from "../../constant/SKStatus";
+import { DataTableViewOptions } from "./AdminDataTableViewOptions";
+import { skStatuses } from "@/constant/skStatus";
+import { skTypes } from "@/constant/skType";
 
 export function DataTableToolbar({ table }) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -20,6 +21,13 @@ export function DataTableToolbar({ table }) {
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        {table.getColumn("skType") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("skType")}
+            title="Jenis Surat"
+            options={skTypes}
+          />
+        )}
         {table.getColumn("skStatus") && (
           <DataTableFacetedFilter
             column={table.getColumn("skStatus")}

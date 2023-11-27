@@ -74,25 +74,36 @@ function AdminOverviewTab() {
   return (
     <div data-aos="fade-down" className="flex flex-col md:flex-col gap-8">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
-          <h4 className="text-lg mb-5">Total Surat Keterangan</h4>
-          <p className="text-4xl font-bold">40</p>
-        </div>
-        <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
-          {" "}
-          <h4 className="text-lg mb-5">Surat Perlu Di Verifikasi</h4>
-          <p className="text-4xl font-bold">11</p>
-        </div>
-        <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
-          {" "}
-          <h4 className="text-lg mb-5">Surat Perlu Di Revisi</h4>
-          <p className="text-4xl font-bold">23</p>
-        </div>
-        <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
-          {" "}
-          <h4 className="text-lg mb-5">Surat Berhasil</h4>
-          <p className="text-4xl font-bold">43</p>
-        </div>
+        {isSuccess ? (
+          <>
+            {" "}
+            <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
+              <h4 className="text-lg mb-5">Total Surat Keterangan</h4>
+              <p className="text-4xl font-bold">{certificateData.total}</p>
+            </div>
+            <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
+              {" "}
+              <h4 className="text-lg mb-5">Surat Perlu Di Verifikasi</h4>
+              <p className="text-4xl font-bold">
+                {certificateData.totalVerify}
+              </p>
+            </div>
+            <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
+              {" "}
+              <h4 className="text-lg mb-5">Surat Perlu Di Revisi</h4>
+              <p className="text-4xl font-bold">
+                {certificateData.totalRevision}
+              </p>
+            </div>
+            <div className="flex justify-center flex-col w-full  border border-gray-100 rounded-lg p-8">
+              {" "}
+              <h4 className="text-lg mb-5">Surat Berhasil</h4>
+              <p className="text-4xl font-bold">{certificateData.totalDone}</p>
+            </div>
+          </>
+        ) : (
+          <Skeleton className="h-12 w-[224px] rounded-lg" />
+        )}
       </div>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="flex justify-center items-center flex-col w-full md:w-[60%] h-full max-w-4xl border border-gray-100 rounded-lg p-8">

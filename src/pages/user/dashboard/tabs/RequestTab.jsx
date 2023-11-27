@@ -8,6 +8,10 @@ import SKIKFormContainer from "../form/SKIKFormContainer";
 import SKTMFormContainer from "../form/SKTMFormContainer";
 import SKMSFormContainer from "../form/SKMSFormContainer";
 import SKCKFormContainer from "../form/SKCKFormContainer";
+import SKPBFormContainer from "../form/SKPBFormContainer";
+import SKKFormContainer from "../form/SKKFormContainer";
+import SKHILFormContainer from "../form/SKHILFormContainer";
+import SKUFormContainer from "../form/SKUFormContainer";
 
 function RequestTab() {
   return (
@@ -41,10 +45,10 @@ function RequestTab() {
           <SKCKFormContainer/>
         </VTabsContent>
         <VTabsContent value="SKU">
-          <>T3</>
+          <SKUFormContainer />
         </VTabsContent>
         <VTabsContent value="SKHIL">
-          <>T3</>
+          <SKHILFormContainer />
         </VTabsContent>
         <VTabsContent value="SKD">
           <>T3</>
@@ -53,10 +57,10 @@ function RequestTab() {
           <>T3</>
         </VTabsContent>
         <VTabsContent value="SKPB">
-          <>T3</>
+          <SKPBFormContainer />
         </VTabsContent>
         <VTabsContent value="SKK">
-          <>T3</>
+          <SKKFormContainer />
         </VTabsContent>
       </VTabs>
     </div>

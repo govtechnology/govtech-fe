@@ -15,12 +15,15 @@ import RHFProvider from "../../../../components/hook-form/RHFProvider";
 import { Button } from "@/components/cnc/ui/button";
 import { Icons } from "@/components/Icons";
 import { cn } from "@/utils/cnc";
+import { useSnackbar } from "notistack";
 
 const cookies = new Cookies();
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  email: Yup.string()
+    .email("Alamat email tidak valid")
+    .required("Alamat email diperlukan"),
+  password: Yup.string().required("Password diperlukan"),
 });
 const defaultValues = {
   email: "",
@@ -30,6 +33,7 @@ const defaultValues = {
 export const LoginForm = () => {
   const [loginMutation] = useLoginMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
 
@@ -63,6 +67,15 @@ export const LoginForm = () => {
         });
         window.location.href = "/";
       })
+      .catch((res) => {
+        console.log(res);
+        if (!res.data.success) {
+          enqueueSnackbar(`Tidak dapat masuk, ${res.data.message}`, {
+            variant: "error",
+            autoHideDuration: 1800,
+          });
+        }
+      })
       .finally(() => {
         setButtonLoading(false);
       });
@@ -87,7 +100,7 @@ export const LoginForm = () => {
               helperText="Masukkan password"
             />
           </div>
-          <Button disabled={buttonLoading}>
+          <Button className="mt-6" disabled={buttonLoading}>
             {buttonLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
