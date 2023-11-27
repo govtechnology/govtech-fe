@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import RHFProvider from "@/components/hook-form/RHFProvider";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
 import RHFTextArea from "@/components/hook-form/RHFTextArea";
@@ -12,7 +12,6 @@ import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 import { useSnackbar } from "notistack";
 import { useGetUserProfileQuery } from "@/redux/api/userProfileApi";
-import { useDispatch } from "@/redux/store";
 
 const SKHILSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),

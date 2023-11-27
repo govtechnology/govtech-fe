@@ -4,7 +4,6 @@ import { FormLabel } from "../cnc/ui/form";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "../cnc/ui/select";
