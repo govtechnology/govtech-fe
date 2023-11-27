@@ -6,6 +6,8 @@ import {
 } from "@/components/VerticalTabs";
 import SKIKFormContainer from "../form/SKIKFormContainer";
 import SKTMFormContainer from "../form/SKTMFormContainer";
+import SKMSFormContainer from "../form/SKMSFormContainer";
+import SKCKFormContainer from "../form/SKCKFormContainer";
 import SKPBFormContainer from "../form/SKPBFormContainer";
 import SKKFormContainer from "../form/SKKFormContainer";
 import SKHILFormContainer from "../form/SKHILFormContainer";
@@ -37,10 +39,10 @@ function RequestTab() {
           <SKTMFormContainer />
         </VTabsContent>
         <VTabsContent value="SKMS">
-          <>T3</>
+          <SKMSFormContainer/>
         </VTabsContent>
         <VTabsContent value="SKCK">
-          <>T3</>
+          <SKCKFormContainer/>
         </VTabsContent>
         <VTabsContent value="SKU">
           <SKUFormContainer />
