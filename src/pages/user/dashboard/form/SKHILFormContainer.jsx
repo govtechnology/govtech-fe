@@ -10,6 +10,7 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKHILSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -24,7 +25,6 @@ const SKHILSchema = Yup.object().shape({
   agama: Yup.string().required("Agama is required"),
   hilang: Yup.string().required("Hilang is required"),
   keterangan: Yup.string().required("Keterangan is required"),
-  
 });
 
 const defaultValues = {
@@ -32,7 +32,7 @@ const defaultValues = {
   nama: "",
   tempatLahir: "",
   tanggaLahir: "",
-  kelamin : "",
+  kelamin: "",
   pekerjaan: "",
   agama: "",
   status: "",
@@ -45,6 +45,7 @@ const defaultValues = {
 function SKHILFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKHILSchema),
@@ -68,15 +69,26 @@ function SKHILFormContainer() {
         kelamin: data.kelamin,
         alamat: data.alamat,
         pekerjaan: data.pekerjaan,
-        status : data.status,
+        status: data.status,
         pendidikan: data.pendidikan,
         agama: data.agama,
         hilang: data.hilang,
         keterangan: data.keterangan,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
@@ -123,7 +135,7 @@ function SKHILFormContainer() {
               label="Pekerjaan"
             />
             <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
-          <RHFTextField
+            <RHFTextField
               name="status"
               helperText="Status anda"
               label="Status"
@@ -150,7 +162,7 @@ function SKHILFormContainer() {
               helperText="Keterangan anda"
               label="Keterangan"
             />
-            </div>
+          </div>
         </div>
         <Button
           type="submit"

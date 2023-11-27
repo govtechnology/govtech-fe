@@ -8,6 +8,7 @@ import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
+import { useSnackbar } from "notistack";
 
 const SKKSchema = Yup.object().shape({
   nama: Yup.string().required("Nama is required"),
@@ -34,6 +35,7 @@ const defaultValues = {
 function SKKFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKKSchema),
@@ -60,9 +62,20 @@ function SKKFormContainer() {
         lokasiMeninggal: data.lokasiMeninggal,
         sebab: data.sebab,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
