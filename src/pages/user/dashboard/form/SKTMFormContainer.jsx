@@ -10,6 +10,7 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKTMSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -34,6 +35,7 @@ const defaultValues = {
 function SKTMFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKTMSchema),
@@ -58,9 +60,20 @@ function SKTMFormContainer() {
         bekerja: data.pekerjaan,
         agama: data.agama,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
@@ -114,7 +127,8 @@ function SKTMFormContainer() {
         <Button
           type="submit"
           className="align-end w-full mt-8"
-          disabled={buttonLoading}>
+          disabled={buttonLoading}
+        >
           {buttonLoading && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}

@@ -10,6 +10,7 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKUSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -23,7 +24,6 @@ const SKUSchema = Yup.object().shape({
   pendidikan: Yup.string().required("Pendidikan is required"),
   agama: Yup.string().required("Agama is required"),
   usaha: Yup.string().required("Usaha is required"),
-  
 });
 
 const defaultValues = {
@@ -31,7 +31,7 @@ const defaultValues = {
   nama: "",
   tempatLahir: "",
   tanggaLahir: "",
-  kelamin : "",
+  kelamin: "",
   alamat: "",
   pekerjaan: "",
   status: "",
@@ -43,6 +43,7 @@ const defaultValues = {
 function SKUFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKUSchema),
@@ -66,14 +67,25 @@ function SKUFormContainer() {
         kelamin: data.kelamin,
         alamat: data.alamat,
         pekerjaan: data.pekerjaan,
-        status : data.status,
+        status: data.status,
         pendidikan: data.pendidikan,
         agama: data.agama,
-        usaha: data.usaha
+        usaha: data.usaha,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
@@ -122,7 +134,7 @@ function SKUFormContainer() {
           </div>
           <div>
             <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
-          <RHFTextField
+            <RHFTextField
               name="status"
               helperText="Status anda"
               label="Status"
@@ -137,12 +149,8 @@ function SKUFormContainer() {
               helperText="Pekerjaan anda"
               label="Pekerjaan"
             />
-            <RHFTextField
-              name="usaha"
-              helperText="Usaha anda"
-              label="Usaha"
-            />
-            </div>
+            <RHFTextField name="usaha" helperText="Usaha anda" label="Usaha" />
+          </div>
         </div>
         <Button
           type="submit"

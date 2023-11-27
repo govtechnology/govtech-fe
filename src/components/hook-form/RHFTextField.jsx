@@ -1,7 +1,7 @@
 import { Input } from "@/components/cnc/ui/input";
 import PropTypes from "prop-types";
 import { useFormContext, Controller } from "react-hook-form";
-import { FormLabel } from "../cnc/ui/form";
+import { FormLabel, FormMessage } from "../cnc/ui/form";
 
 RHFTextField.propTypes = {
   name: PropTypes.string,
@@ -21,7 +21,13 @@ export default function RHFTextField({ name, label, helperText, type }) {
         render={({ field, fieldState: { error } }) => (
           <>
             <div className="mb-1">
-              <FormLabel>{label}</FormLabel>
+              {error ? (
+                <p className="mt-2 text-sm font-medium text-red-500 dark:text-red-900">
+                  {label}
+                </p>
+              ) : (
+                <FormLabel>{label}</FormLabel>
+              )}
             </div>
             <Input
               {...field}
@@ -34,6 +40,11 @@ export default function RHFTextField({ name, label, helperText, type }) {
               }
               error={!!error}
             />
+            {error && (
+              <p className="mt-2 text-sm font-medium text-red-500 dark:text-red-900">
+                {error.message}
+              </p>
+            )}
           </>
         )}
       />
