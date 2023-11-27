@@ -11,32 +11,42 @@ import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 
-const SKTMSchema = Yup.object().shape({
+const SKPBSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
   nama: Yup.string().required("Nama is required"),
   tempatLahir: Yup.string().required("Tempat Lahir is required"),
   tanggalLahir: Yup.date().required("Tanggal Lahir is required"),
+  kelamin: Yup.string().required("Jenis Kelamin is reqired"),
   alamat: Yup.string().required("Alamat is required"),
-  pekerjaan: Yup.string().required("Pekerjaan is required"),
+  bank: Yup.string().required("Bank is required"),
   agama: Yup.string().required("Agama is required"),
+  status: Yup.string().required("Status is required"),
+  pendidikan: Yup.string().required("Pendidikan is required"),
+  pekerjaan: Yup.string().required("Pekerjaan is required"),
+  usaha: Yup.string().required("Usaha is required"),
 });
 
 const defaultValues = {
   nik: "",
   nama: "",
   tempatLahir: "",
-  tanggaLahir: "",
+  tanggalLahir: "",
+  kelamin: "",
   alamat: "",
-  pekerjaan: "",
+  bank: "",
   agama: "",
+  status: "",
+  pendidikan: "",
+  pekerjaan: "",
+  usaha: "",
 };
 
-function SKTMFormContainer() {
+function SKPBFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const methods = useForm({
-    resolver: yupResolver(SKTMSchema),
+    resolver: yupResolver(SKPBSchema),
     defaultValues,
   });
 
@@ -49,14 +59,19 @@ function SKTMFormContainer() {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     requestCertificate({
-      skType: "SKTM",
+      skType: "SKPB",
       skData: {
         nik: data.nik,
         nama: data.nama,
         ttl: `${data.tempatLahir}, ${formatDateNoTime(data.tanggalLahir)}`,
+        kelamin: data.kelamin,
         alamat: data.alamat,
-        bekerja: data.pekerjaan,
+        bank: data.bank,
         agama: data.agama,
+        status: data.status,
+        pendidikan: data.pendidikan,
+        pekerjaan: data.pekerjaan,
+        usaha: data.usaha,
       },
     }).finally(() => {
       setButtonLoading(false);
@@ -87,7 +102,7 @@ function SKTMFormContainer() {
             <div className="grid grid-cols-2 gap-6">
               <RHFTextField
                 name="tempatLahir"
-                helperText="Tempat lahir anda"
+                helperText=" Tempat lahir anda"
                 label="Tempat Lahir"
               />
               <RHFDatePicker
@@ -104,11 +119,31 @@ function SKTMFormContainer() {
           </div>
           <div>
             <RHFTextField
+              name="bank"
+              helperText="Bank anda"
+              label="Bank Anda"
+            />
+            <RHFTextField name="agama" helperText="agama" label="Agama Anda" />
+            <RHFTextField
+              name="status"
+              helperText="Status anda"
+              label="Status Anda"
+            />
+            <RHFTextField
+              name="pendidikan"
+              helperText="Pendidikan anda"
+              label="Pendidikan Anda"
+            />
+            <RHFTextField
               name="pekerjaan"
               helperText="Pekerjaan anda"
               label="Pekerjaan"
             />
-            <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
+            <RHFTextField
+              name="usaha"
+              helperText="Usaha anda"
+              label="Usaha Anda"
+            />
           </div>
         </div>
         <Button
@@ -125,4 +160,4 @@ function SKTMFormContainer() {
   );
 }
 
-export default SKTMFormContainer;
+export default SKPBFormContainer;
