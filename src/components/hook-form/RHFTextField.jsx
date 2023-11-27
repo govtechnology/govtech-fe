@@ -1,7 +1,7 @@
 import { Input } from "@/components/cnc/ui/input";
 import PropTypes from "prop-types";
 import { useFormContext, Controller } from "react-hook-form";
-import { FormLabel, FormMessage } from "../cnc/ui/form";
+import { FormLabel } from "../cnc/ui/form";
 
 RHFTextField.propTypes = {
   name: PropTypes.string,

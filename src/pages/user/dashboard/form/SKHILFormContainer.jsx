@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import RHFProvider from "@/components/hook-form/RHFProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
 import RHFTextArea from "@/components/hook-form/RHFTextArea";
@@ -11,6 +11,8 @@ import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 import { useSnackbar } from "notistack";
+import { useGetUserProfileQuery } from "@/redux/api/userProfileApi";
+import { useDispatch } from "@/redux/store";
 
 const SKHILSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -27,25 +29,28 @@ const SKHILSchema = Yup.object().shape({
   keterangan: Yup.string().required("Keterangan is required"),
 });
 
-const defaultValues = {
-  nik: "",
-  nama: "",
-  tempatLahir: "",
-  tanggaLahir: "",
-  kelamin: "",
-  pekerjaan: "",
-  agama: "",
-  status: "",
-  pendidikan: "",
-  alamat: "",
-  hilang: "",
-  keterangan: "",
-};
-
 function SKHILFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
+  const { data: userProfile, isLoading: userProfileLoading } =
+    useGetUserProfileQuery();
+
   const [buttonLoading, setButtonLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+  const defaultValues = {
+    nik: userProfile.profile.nik,
+    nama: userProfile.profile.name,
+    tempatLahir: userProfile.profile.tempatLahir,
+    tanggalLahir: userProfile.profile.tanggalLahir,
+    kelamin: "",
+    pekerjaan: "",
+    agama: "",
+    status: "",
+    pendidikan: "",
+    alamat: "",
+    hilang: "",
+    keterangan: "",
+  };
 
   const methods = useForm({
     resolver: yupResolver(SKHILSchema),
@@ -99,82 +104,90 @@ function SKHILFormContainer() {
           Isi data sesuai dengan identitas diri anda
         </p>
       </div>
-      <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div>
-            <RHFTextField
-              name="nik"
-              helperText="NIK anda"
-              label="NIK / No KTP"
-            />
-            <RHFTextField
-              name="nama"
-              helperText="Nama lengkap anda"
-              label="Nama Lengkap"
-            />
-            <div className="grid grid-cols-2 gap-6">
+      {userProfileLoading ? (
+        <></>
+      ) : (
+        <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div>
               <RHFTextField
-                name="tempatLahir"
-                helperText="Tempat lahir anda"
-                label="Tempat Lahir"
+                name="nik"
+                helperText="NIK anda"
+                label="NIK / No KTP"
               />
-              <RHFDatePicker
-                name="tanggalLahir"
-                helperText="dd/mm/yy"
-                label="Tanggal Lahir"
+              <RHFTextField
+                name="nama"
+                helperText="Nama lengkap anda"
+                label="Nama Lengkap"
+              />
+              <div className="grid grid-cols-2 gap-6">
+                <RHFTextField
+                  name="tempatLahir"
+                  helperText="Tempat lahir anda"
+                  label="Tempat Lahir"
+                />
+                <RHFDatePicker
+                  name="tanggalLahir"
+                  helperText="dd/mm/yy"
+                  label="Tanggal Lahir"
+                />
+              </div>
+              <RHFTextField
+                name="kelamin"
+                helperText="Jenis kelamin anda"
+                label="Jenis Kelamin"
+              />
+              <RHFTextField
+                name="pekerjaan"
+                helperText="Pekerjaan anda"
+                label="Pekerjaan"
+              />
+              <RHFTextField
+                name="agama"
+                helperText="Agama anda"
+                label="Agama"
+              />
+              <RHFTextField
+                name="status"
+                helperText="Status anda"
+                label="Status"
               />
             </div>
-            <RHFTextField
-              name="kelamin"
-              helperText="Jenis kelamin anda"
-              label="Jenis Kelamin"
-            />
-            <RHFTextField
-              name="pekerjaan"
-              helperText="Pekerjaan anda"
-              label="Pekerjaan"
-            />
-            <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
-            <RHFTextField
-              name="status"
-              helperText="Status anda"
-              label="Status"
-            />
+            <div>
+              <RHFTextField
+                name="pendidikan"
+                helperText="Pendidikan anda"
+                label="Pendidikan"
+              />
+              <RHFTextArea
+                name="alamat"
+                helperText="Alamat anda"
+                label="Alamat Anda"
+              />
+              <RHFTextField
+                name="hilang"
+                helperText="Kehilangan"
+                label="Kehilangan"
+              />
+              <RHFTextArea
+                name="keterangan"
+                helperText="Keterangan anda"
+                label="Keterangan"
+              />
+            </div>
           </div>
-          <div>
-            <RHFTextField
-              name="pendidikan"
-              helperText="Pendidikan anda"
-              label="Pendidikan"
-            />
-            <RHFTextArea
-              name="alamat"
-              helperText="Alamat anda"
-              label="Alamat Anda"
-            />
-            <RHFTextField
-              name="hilang"
-              helperText="Kehilangan"
-              label="Kehilangan"
-            />
-            <RHFTextArea
-              name="keterangan"
-              helperText="Keterangan anda"
-              label="Keterangan"
-            />
-          </div>
-        </div>
-        <Button
-          type="submit"
-          className="align-end w-full mt-8"
-          disabled={buttonLoading}
-        >
-          {buttonLoading && (
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-          )}
-          Kirim Data
-        </Button>
-      </RHFProvider>
+          <Button
+            type="submit"
+            className="align-end w-full mt-8"
+            disabled={buttonLoading}
+          >
+            {buttonLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            Kirim Data
+          </Button>
+        </RHFProvider>
+      )}
     </div>
   );
 }

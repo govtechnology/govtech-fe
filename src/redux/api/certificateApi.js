@@ -12,7 +12,6 @@ export const certificateApi = baseApi
             method: "GET",
             headers: getUserAuthHeaderApi(),
           }),
-          providesTags: ["certificateTag"],
         }),
         getUserCertificateById: builder.query({
           query: ({ id }) => ({
@@ -20,7 +19,6 @@ export const certificateApi = baseApi
             method: "GET",
             headers: getUserAuthHeaderApi(),
           }),
-          providesTags: ["certificateTag"],
         }),
         requestUserCertificate: builder.mutation({
           query: ({ skType, skData }) => ({
@@ -29,7 +27,6 @@ export const certificateApi = baseApi
             body: { skType, skData },
             headers: getUserAuthHeaderApi(),
           }),
-          invalidatesTags: ["certificateTag"],
         }),
         generateUserCertificate: builder.mutation({
           query: ({ skId, skType, skData }) => ({
@@ -44,7 +41,7 @@ export const certificateApi = baseApi
             url: "/certificate/download",
             method: "POST",
             body: { remotePath },
-            headers: getUserAuthHeaderApi,
+            headers: getUserAuthHeaderApi(),
           }),
         }),
       };
