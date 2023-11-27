@@ -10,16 +10,21 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
-import { useSnackbar } from "notistack";
 
-const SKTMSchema = Yup.object().shape({
+const SKMSSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
   nama: Yup.string().required("Nama is required"),
   tempatLahir: Yup.string().required("Tempat Lahir is required"),
   tanggalLahir: Yup.date().required("Tanggal Lahir is required"),
   alamat: Yup.string().required("Alamat is required"),
-  pekerjaan: Yup.string().required("Pekerjaan is required"),
-  agama: Yup.string().required("Agama is required"),
+  usaha: Yup.string().required("Pekerjaan is required"),
+  jenisAlat: Yup.string().required("Jenis Alat is required"),
+  jumlahAlat: Yup.string().required("Jumlah Alat is required"),
+  fungsiAlat: Yup.string().required("Fungsi Alat is required"),
+  jenisBBM: Yup.string().required("Jenis BBM is required"),
+  kodeSPBU: Yup.string().required("Kode SPBU is required"),
+  tglBerlaku: Yup.date().required("Tanggal Berlaku is required"),
+  lokasiSPBU: Yup.string().required("Tanggal Berlaku is required"),
 });
 
 const defaultValues = {
@@ -27,18 +32,24 @@ const defaultValues = {
   nama: "",
   tempatLahir: "",
   tanggaLahir: "",
+  jenisKelamin: "",
   alamat: "",
-  pekerjaan: "",
-  agama: "",
+  usaha: "",
+  jenisAlat: "",
+  jumlahAlat: "",
+  fungsiAlat: "",
+  jenisBBM: "",
+  kodeSPBU: "",
+  tglBerlaku: "",
+  lokasiSPBU: "",
 };
 
-function SKTMFormContainer() {
+function SKMSFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: yupResolver(SKTMSchema),
+    resolver: yupResolver(SKMSSchema),
     defaultValues,
   });
 
@@ -51,30 +62,26 @@ function SKTMFormContainer() {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     requestCertificate({
-      skType: "SKTM",
+      skType: "SKMS",
       skData: {
         nik: data.nik,
         nama: data.nama,
         ttl: `${data.tempatLahir}, ${formatDateNoTime(data.tanggalLahir)}`,
         alamat: data.alamat,
-        bekerja: data.pekerjaan,
-        agama: data.agama,
+        usaha: data.usaha,
+        jenisAlat: data.jenisAlat,
+        jumlahAlat: data.jumlahAlat,
+        fungsiAlat: data.fungsiAlat,
+        jenisBBM: data.jenisBBM,
+        kodeSPBU: data.kodeSPBU,
+        lokasiSPBU: data.lokasiSPBU,
+        tglBerlaku: data.tglBerlaku,
       },
-    })
-      .then((res) => {
-        if (res.data.success) {
-          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
-            variant: "success",
-            autoHideDuration: 1800,
-          });
-        } else {
-          enqueueSnackbar(`Error: ${res}`);
-        }
-      })
-      .finally(() => {
-        setButtonLoading(false);
-      });
+    }).finally(() => {
+      setButtonLoading(false);
+    });
   };
+  
 
   return (
     <div>
@@ -108,6 +115,7 @@ function SKTMFormContainer() {
                 helperText="dd/mm/yy"
                 label="Tanggal Lahir"
               />
+
             </div>
             <RHFTextArea
               name="alamat"
@@ -117,11 +125,47 @@ function SKTMFormContainer() {
           </div>
           <div>
             <RHFTextField
-              name="pekerjaan"
-              helperText="Pekerjaan anda"
-              label="Pekerjaan"
+              name="usaha"
+              helperText="Jenis Usaha Anda"
+              label="Jenis Usaha"
             />
-            <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
+            <RHFTextField
+             name="jenisAlat" 
+             helperText="Jenis Alat " 
+             label="Jenis Alat" />
+
+            <RHFTextField
+             name="jumlahAlat" 
+             helperText="Jumlah Alat " 
+             label="Jumlah Alat" />
+
+            <RHFTextField
+             name="fungsiAlat" 
+             helperText="Fungsi Alat " 
+             label="Fungsi Alat" />
+
+            <RHFTextField
+             name="jenisBBM" 
+             helperText="Jenis BBM yang diperlukan " 
+             label="Jenis BBM" />
+
+            <div className="grid grid-cols-2 gap-6">
+              <RHFTextField
+                name="kodeSPBU"
+                helperText="Tempat lahir anda"
+                label="Kode SPBU"
+              />
+              <RHFDatePicker
+                name="tglBerlaku"
+                helperText="dd/mm/yy"
+                label="Tanggal Berlaku"
+              />
+            </div>
+            <RHFTextField
+             name="lokasiSPBU" 
+             helperText="Lokasi SPBUnya " 
+             label="Lokasi SPBU" />
+             
           </div>
         </div>
         <Button
@@ -139,4 +183,4 @@ function SKTMFormContainer() {
   );
 }
 
-export default SKTMFormContainer;
+export default SKMSFormContainer;

@@ -6,39 +6,41 @@ import RHFProvider from "@/components/hook-form/RHFProvider";
 import { useState } from "react";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
-import RHFTextArea from "@/components/hook-form/RHFTextArea";
-import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
-import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import { useSnackbar } from "notistack";
+import RHFSelect from "@/components/hook-form/RHFSelect";
+import { SelectItem } from "@/components/cnc/ui/select";
 
-const SKTMSchema = Yup.object().shape({
-  nik: Yup.string().required("NIK is required"),
+const SKKSchema = Yup.object().shape({
   nama: Yup.string().required("Nama is required"),
-  tempatLahir: Yup.string().required("Tempat Lahir is required"),
-  tanggalLahir: Yup.date().required("Tanggal Lahir is required"),
+  jenisKelamin: Yup.string().required("Jenis Kelamin is required"),
   alamat: Yup.string().required("Alamat is required"),
-  pekerjaan: Yup.string().required("Pekerjaan is required"),
-  agama: Yup.string().required("Agama is required"),
+  umur: Yup.string().required("Umur is required"),
+  hariMeninggal: Yup.string().required("Hari Meniggal is required"),
+  tanggalMeninggal: Yup.date().required("Tanggal Meninggal is required"),
+  lokasiMeninggal: Yup.string().required("Lokasi Meninggal is required"),
+  sebab: Yup.string().required("Sebab Meninggal is required"),
 });
 
 const defaultValues = {
-  nik: "",
   nama: "",
-  tempatLahir: "",
-  tanggaLahir: "",
+  jenisKelamin: "",
   alamat: "",
-  pekerjaan: "",
-  agama: "",
+  umur: "",
+  hariMeninggal: "",
+  tanggalMeninggal: "",
+  lokasiMeninggal: "",
+  sebab: "",
 };
 
-function SKTMFormContainer() {
+function SKKFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: yupResolver(SKTMSchema),
+    resolver: yupResolver(SKKSchema),
     defaultValues,
   });
 
@@ -51,14 +53,16 @@ function SKTMFormContainer() {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     requestCertificate({
-      skType: "SKTM",
+      skType: "SKK",
       skData: {
-        nik: data.nik,
         nama: data.nama,
-        ttl: `${data.tempatLahir}, ${formatDateNoTime(data.tanggalLahir)}`,
+        jenisKelamin: data.jenisKelamin,
         alamat: data.alamat,
-        bekerja: data.pekerjaan,
-        agama: data.agama,
+        umur: data.umur,
+        hariMeninggal: data.hariMeninggal,
+        tanggalMeninggal: data.tanggalMeninggal,
+        lokasiMeninggal: data.lokasiMeninggal,
+        sebab: data.sebab,
       },
     })
       .then((res) => {
@@ -81,54 +85,62 @@ function SKTMFormContainer() {
       <div>
         <h6 className="font-bold text-2xl mb-1">Masukkan Data</h6>
         <p className="text-gray-500">
-          Isi data sesuai dengan identitas diri anda
+          Isi data sesuai dengan identitas diri mendiang
         </p>
       </div>
       <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <div>
             <RHFTextField
-              name="nik"
-              helperText="NIK anda"
-              label="NIK / No KTP"
-            />
-            <RHFTextField
               name="nama"
-              helperText="Nama lengkap anda"
+              helperText="Nama lengkap mendiang"
               label="Nama Lengkap"
             />
-            <div className="grid grid-cols-2 gap-6">
-              <RHFTextField
-                name="tempatLahir"
-                helperText="Tempat lahir anda"
-                label="Tempat Lahir"
-              />
-              <RHFDatePicker
-                name="tanggalLahir"
-                helperText="dd/mm/yy"
-                label="Tanggal Lahir"
-              />
-            </div>
-            <RHFTextArea
+            <RHFSelect
+              name="jenisKelamin"
+              helperText="Jenis Kelamin mendiang"
+              label="Jenis Kelamin"
+            >
+              <SelectItem value="Laki-Laki">Laki-Laki</SelectItem>
+              <SelectItem value="Perempuan">Perempuan</SelectItem>
+            </RHFSelect>
+            <RHFTextField
               name="alamat"
-              helperText="Alamat anda"
-              label="Alamat Anda"
+              helperText="Alamat terakhir"
+              label="Alamat Terakhir"
+            />
+            <RHFTextField
+              name="umur"
+              helperText="Meninggal pada umur"
+              label="Umur"
             />
           </div>
           <div>
+            <div className="grid grid-cols-2 gap-6">
+              <RHFTextField
+                name="hariMeninggal"
+                helperText="Hari meninggal"
+                label="Hari Meninggal"
+              />
+              <RHFDatePicker
+                name="tanggalMeninggal"
+                helperText="dd/mm/yy"
+                label="Tanggal Meninggal"
+              />
+            </div>
             <RHFTextField
-              name="pekerjaan"
-              helperText="Pekerjaan anda"
-              label="Pekerjaan"
+              name="lokasiMeninggal"
+              helperText="Lokasi meninggal"
+              label="Lokasi Meninggal"
             />
-            <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
+            <RHFTextField
+              name="sebab"
+              helperText="Sebab meninggal"
+              label="Sebab Meninggal"
+            />
           </div>
         </div>
-        <Button
-          type="submit"
-          className="align-end w-full mt-8"
-          disabled={buttonLoading}
-        >
+        <Button className="align-end w-full mt-8" disabled={buttonLoading}>
           {buttonLoading && (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           )}
@@ -139,4 +151,4 @@ function SKTMFormContainer() {
   );
 }
 
-export default SKTMFormContainer;
+export default SKKFormContainer;

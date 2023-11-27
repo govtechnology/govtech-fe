@@ -10,9 +10,8 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
-import { useSnackbar } from "notistack";
 
-const SKTMSchema = Yup.object().shape({
+const SKCKSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
   nama: Yup.string().required("Nama is required"),
   tempatLahir: Yup.string().required("Tempat Lahir is required"),
@@ -20,25 +19,32 @@ const SKTMSchema = Yup.object().shape({
   alamat: Yup.string().required("Alamat is required"),
   pekerjaan: Yup.string().required("Pekerjaan is required"),
   agama: Yup.string().required("Agama is required"),
+  kelamin: Yup.string().required("Jenis Kelamin is required"),
+  status: Yup.string().required("Status is required"),
+  pendidikan: Yup.string().required("Pendidikan is required"),
+  keperluan: Yup.string().required("Keperluan is required"),
 });
 
 const defaultValues = {
-  nik: "",
-  nama: "",
-  tempatLahir: "",
-  tanggaLahir: "",
-  alamat: "",
-  pekerjaan: "",
-  agama: "",
+    nik: "",
+    nama: "",
+    tempatLahir: "",
+    tanggalLahir: "",
+    alamat: "",
+    pekerjaan: "",
+    agama: "",
+    kelamin: "",
+    status: "",
+    pendidikan: "",
+    keperluan: "",
 };
 
-function SKTMFormContainer() {
+function SKCKFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: yupResolver(SKTMSchema),
+    resolver: yupResolver(SKCKSchema),
     defaultValues,
   });
 
@@ -51,29 +57,22 @@ function SKTMFormContainer() {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     requestCertificate({
-      skType: "SKTM",
+      skType: "SKCK",
       skData: {
         nik: data.nik,
         nama: data.nama,
         ttl: `${data.tempatLahir}, ${formatDateNoTime(data.tanggalLahir)}`,
         alamat: data.alamat,
-        bekerja: data.pekerjaan,
+        pekerjaan: data.pekerjaan,
         agama: data.agama,
+        kelamin: data.kelamin,
+        status: data.status,
+        pendidikan: data.pendidikan,
+        keperluan: data.keperluan,
       },
-    })
-      .then((res) => {
-        if (res.data.success) {
-          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
-            variant: "success",
-            autoHideDuration: 1800,
-          });
-        } else {
-          enqueueSnackbar(`Error: ${res}`);
-        }
-      })
-      .finally(() => {
-        setButtonLoading(false);
-      });
+    }).finally(() => {
+      setButtonLoading(false);
+    });
   };
 
   return (
@@ -109,6 +108,7 @@ function SKTMFormContainer() {
                 label="Tanggal Lahir"
               />
             </div>
+            <RHFTextField name="kelamin" helperText="Jenis Kelamin" label="Jenis Kelamin" />
             <RHFTextArea
               name="alamat"
               helperText="Alamat anda"
@@ -122,6 +122,9 @@ function SKTMFormContainer() {
               label="Pekerjaan"
             />
             <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
+            <RHFTextField name="status" helperText="Status" label="Status" />
+            <RHFTextField name="pendidikan" helperText="Pendidikan" label="Pendidikan" />
+            <RHFTextField name="keperluan" helperText="Keperluan" label="Keperluan" />
           </div>
         </div>
         <Button
@@ -139,4 +142,4 @@ function SKTMFormContainer() {
   );
 }
 
-export default SKTMFormContainer;
+export default SKCKFormContainer;

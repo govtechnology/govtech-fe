@@ -7,7 +7,7 @@ import { cn } from "@/utils/cnc";
 const VTabs = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Root
     ref={ref}
-    className={cn("flex flex-row gap-6 w-full", className)}
+    className={cn("flex flex-col md:flex-row gap-6 w-full", className)}
     {...props}
   />
 ));
@@ -17,7 +17,7 @@ const VTabsList = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "flex flex-col w-[240px] h-full items-start p-1 text-gray-500 dark:bg-gray-800 dark:text-gray-400",
+      "flex flex-row md:flex-col overflow-x-auto overflow-y-hidden w-full md:w-[240px] h-full items-start p-1 text-gray-500 dark:bg-gray-800 dark:text-gray-400",
       className
     )}
     {...props}

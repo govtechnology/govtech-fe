@@ -21,12 +21,8 @@ import {
   TableRow,
 } from "@/components/cnc/ui/table";
 import { useState } from "react";
-import { DataTablePagination } from "./DataTablePagination";
-import { DataTableToolbar } from "./DataTableToolbar";
-
-function handleOpenDetailsPanel(nama) {
-  console.log(nama);
-}
+import { DataTablePagination } from "./AdminDataTablePagination";
+import { DataTableToolbar } from "./AdminDataTableToolbar";
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
@@ -42,9 +38,6 @@ export function DataTable({ columns, data }) {
       columnVisibility,
       rowSelection,
       columnFilters,
-    },
-    meta: {
-      handleOpenDetailsPanel: (id) => handleOpenDetailsPanel(id),
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
