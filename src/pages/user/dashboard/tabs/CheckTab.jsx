@@ -1,6 +1,7 @@
 import { useGetUserCertificateQuery } from "@/redux/api/certificateApi";
 import { Skeleton } from "@/components/cnc/ui/skeleton";
-import StatusCertificateItem from "../components/StatusCertificateItem";
+import { DataTable } from "../table/UserDataTable";
+import { columns } from "../table/UserColumns";
 
 function CheckTab() {
   const { data: certificateData, isSuccess: certificateSuccess } =
@@ -13,16 +14,7 @@ function CheckTab() {
     >
       <div className="flex flex-col gap-8">
         {certificateSuccess ? (
-          certificateData.certificate.map((certificate, index) => (
-            <>
-              <StatusCertificateItem
-                key={index}
-                skType={certificate.skType}
-                requestDate={certificate.requestDate}
-                status={certificate.skStatus}
-              />
-            </>
-          ))
+          <DataTable columns={columns} data={certificateData.certificate} />
         ) : (
           <Skeleton className="h-12 w-[224px] rounded-lg" />
         )}

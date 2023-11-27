@@ -16,6 +16,7 @@ import ProfilePage from "./pages/user/profile/ProfilePage";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import { useGetUserQuery } from "./redux/api/userApi";
 import LoaderPage from "./pages/public/general/LoaderPage";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,28 +32,35 @@ function App() {
 
   return (
     <div className="font-manrope">
-      <Routes>
-        <Route path="/" element={<BaseLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/faq" element={<FaqPage />} />
-          {isLoggedIn && userSuccess ? (
-            <>
-              {userData.user.role === "ADMIN" ? (
-                <Route path="/dashboard" element={<AdminDashboard />} />
-              ) : (
-                <Route path="/dashboard" element={<DashboardPage />} />
-              )}
-              <Route path="/dashboard/profile" element={<ProfilePage />} />
-            </>
-          ) : (
-            <Route path="*" element={<LoaderPage />} />
-          )}
-        </Route>
-        <Route path="/auth/signin" element={<LoginPage />} />
-        <Route path="/auth/signup" element={<SignUpPage />} />
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<BaseLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            {isLoggedIn && userSuccess ? (
+              <>
+                {userData.user.role === "ADMIN" ? (
+                  <Route path="/dashboard" element={<AdminDashboard />} />
+                ) : (
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                )}
+                <Route path="/dashboard/profile" element={<ProfilePage />} />
+              </>
+            ) : (
+              <Route path="*" element={<LoaderPage />} />
+            )}
+          </Route>
+          <Route path="/auth/signin" element={<LoginPage />} />
+          <Route path="/auth/signup" element={<SignUpPage />} />
 
-        <Route path="*" element={<NoPage />} />
-      </Routes>
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </SnackbarProvider>
     </div>
   );
 }

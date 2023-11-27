@@ -22,7 +22,7 @@ export default function RHFDatePicker({ name, label, helperText }) {
       <Controller
         name={name}
         control={control}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <>
             <div className="mb-1">
               <FormLabel>{label}</FormLabel>
@@ -61,6 +61,11 @@ export default function RHFDatePicker({ name, label, helperText }) {
                 />
               </PopoverContent>
             </Popover>
+            {error && (
+              <p className="mt-2 text-sm font-medium text-red-500 dark:text-red-900">
+                {error.message}
+              </p>
+            )}
           </>
         )}
       />
