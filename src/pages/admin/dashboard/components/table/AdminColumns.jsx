@@ -1,8 +1,9 @@
-import { Button } from "@/components/cnc/ui/button";
 import { formatDate } from "@/utils/dateFormatter";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { skStatuses } from "../../constant/SKStatus";
+import { DataTableColumnHeader } from "./AdminDataTableColumnHeader";
 import DetailCertificateModal from "../DetailCertificateModal";
+import { skStatuses } from "@/constant/skStatus";
+import { Badge } from "@/components/cnc/ui/badge";
+import { skTypes } from "@/constant/skType";
 
 export const columns = [
   {
@@ -14,7 +15,23 @@ export const columns = [
   },
   {
     accessorKey: "skType",
-    header: "Jenis Surat",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Jenis Surat" />
+    ),
+    cell: ({ row }) => {
+      const skType = skTypes.find(
+        (type) => type.value === row.getValue("skType")
+      );
+
+      if (!skType) {
+        return null;
+      }
+
+      return <span>{skType.label}</span>;
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "skStatus",
@@ -30,19 +47,13 @@ export const columns = [
         return null;
       }
 
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      );
+      return <Badge>{status.label}</Badge>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
   },
+
   {
     accessorKey: "requestDate",
     header: ({ column }) => (

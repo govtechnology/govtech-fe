@@ -21,8 +21,8 @@ import {
   TableRow,
 } from "@/components/cnc/ui/table";
 import { useState } from "react";
-import { DataTablePagination } from "./DataTablePagination";
-import { DataTableToolbar } from "./DataTableToolbar";
+import { DataTablePagination } from "./AdminDataTablePagination";
+import { DataTableToolbar } from "./AdminDataTableToolbar";
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
