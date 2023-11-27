@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client";
-
 import {
   flexRender,
   getCoreRowModel,

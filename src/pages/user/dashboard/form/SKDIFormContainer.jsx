@@ -8,8 +8,7 @@ import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
 import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
-import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
-import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKDISchema = Yup.object().shape({
   nama: Yup.string().required("Nama Instansi is required"),
@@ -24,6 +23,7 @@ const defaultValues = {
 function SKDIFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKDISchema),
@@ -44,9 +44,20 @@ function SKDIFormContainer() {
         nama: data.nama,
         alamat: data.alamat,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (

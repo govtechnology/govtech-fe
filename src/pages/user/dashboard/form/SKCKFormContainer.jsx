@@ -10,6 +10,7 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKCKSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -26,22 +27,23 @@ const SKCKSchema = Yup.object().shape({
 });
 
 const defaultValues = {
-    nik: "",
-    nama: "",
-    tempatLahir: "",
-    tanggalLahir: "",
-    alamat: "",
-    pekerjaan: "",
-    agama: "",
-    kelamin: "",
-    status: "",
-    pendidikan: "",
-    keperluan: "",
+  nik: "",
+  nama: "",
+  tempatLahir: "",
+  tanggalLahir: "",
+  alamat: "",
+  pekerjaan: "",
+  agama: "",
+  kelamin: "",
+  status: "",
+  pendidikan: "",
+  keperluan: "",
 };
 
 function SKCKFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKCKSchema),
@@ -70,9 +72,20 @@ function SKCKFormContainer() {
         pendidikan: data.pendidikan,
         keperluan: data.keperluan,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
@@ -108,7 +121,11 @@ function SKCKFormContainer() {
                 label="Tanggal Lahir"
               />
             </div>
-            <RHFTextField name="kelamin" helperText="Jenis Kelamin" label="Jenis Kelamin" />
+            <RHFTextField
+              name="kelamin"
+              helperText="Jenis Kelamin"
+              label="Jenis Kelamin"
+            />
             <RHFTextArea
               name="alamat"
               helperText="Alamat anda"
@@ -123,8 +140,16 @@ function SKCKFormContainer() {
             />
             <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
             <RHFTextField name="status" helperText="Status" label="Status" />
-            <RHFTextField name="pendidikan" helperText="Pendidikan" label="Pendidikan" />
-            <RHFTextField name="keperluan" helperText="Keperluan" label="Keperluan" />
+            <RHFTextField
+              name="pendidikan"
+              helperText="Pendidikan"
+              label="Pendidikan"
+            />
+            <RHFTextField
+              name="keperluan"
+              helperText="Keperluan"
+              label="Keperluan"
+            />
           </div>
         </div>
         <Button

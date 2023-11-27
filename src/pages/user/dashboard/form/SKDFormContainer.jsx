@@ -10,6 +10,7 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKDSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -38,6 +39,7 @@ const defaultValues = {
 function SKDFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKDSchema),
@@ -64,9 +66,20 @@ function SKDFormContainer() {
         status: data.status,
         pekerjaan: data.pekerjaan,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
@@ -109,13 +122,12 @@ function SKDFormContainer() {
             />
           </div>
           <div>
-            <RHFTextField name="agama" 
-            helperText="Agama anda" 
-            label="Agama" />
+            <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
 
-            <RHFTextField name="kelamin" 
-            helperText="Kelamin anda" 
-            label="Kelamin" 
+            <RHFTextField
+              name="kelamin"
+              helperText="Kelamin anda"
+              label="Kelamin"
             />
 
             <RHFTextField
@@ -129,7 +141,6 @@ function SKDFormContainer() {
               helperText="Pekerjaan anda"
               label="Pekerjaan"
             />
-
           </div>
         </div>
         <Button

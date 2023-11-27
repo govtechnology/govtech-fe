@@ -10,6 +10,7 @@ import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
+import { useSnackbar } from "notistack";
 
 const SKMSSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -47,6 +48,7 @@ const defaultValues = {
 function SKMSFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKMSSchema),
@@ -77,11 +79,21 @@ function SKMSFormContainer() {
         lokasiSPBU: data.lokasiSPBU,
         tglBerlaku: data.tglBerlaku,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
-  
 
   return (
     <div>
@@ -115,7 +127,6 @@ function SKMSFormContainer() {
                 helperText="dd/mm/yy"
                 label="Tanggal Lahir"
               />
-
             </div>
             <RHFTextArea
               name="alamat"
@@ -130,24 +141,28 @@ function SKMSFormContainer() {
               label="Jenis Usaha"
             />
             <RHFTextField
-             name="jenisAlat" 
-             helperText="Jenis Alat " 
-             label="Jenis Alat" />
+              name="jenisAlat"
+              helperText="Jenis Alat "
+              label="Jenis Alat"
+            />
 
             <RHFTextField
-             name="jumlahAlat" 
-             helperText="Jumlah Alat " 
-             label="Jumlah Alat" />
+              name="jumlahAlat"
+              helperText="Jumlah Alat "
+              label="Jumlah Alat"
+            />
 
             <RHFTextField
-             name="fungsiAlat" 
-             helperText="Fungsi Alat " 
-             label="Fungsi Alat" />
+              name="fungsiAlat"
+              helperText="Fungsi Alat "
+              label="Fungsi Alat"
+            />
 
             <RHFTextField
-             name="jenisBBM" 
-             helperText="Jenis BBM yang diperlukan " 
-             label="Jenis BBM" />
+              name="jenisBBM"
+              helperText="Jenis BBM yang diperlukan "
+              label="Jenis BBM"
+            />
 
             <div className="grid grid-cols-2 gap-6">
               <RHFTextField
@@ -162,10 +177,10 @@ function SKMSFormContainer() {
               />
             </div>
             <RHFTextField
-             name="lokasiSPBU" 
-             helperText="Lokasi SPBUnya " 
-             label="Lokasi SPBU" />
-             
+              name="lokasiSPBU"
+              helperText="Lokasi SPBUnya "
+              label="Lokasi SPBU"
+            />
           </div>
         </div>
         <Button
