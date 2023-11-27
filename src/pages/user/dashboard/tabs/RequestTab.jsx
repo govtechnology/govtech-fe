@@ -6,13 +6,14 @@ import {
 } from "@/components/VerticalTabs";
 import SKIKFormContainer from "../form/SKIKFormContainer";
 import SKTMFormContainer from "../form/SKTMFormContainer";
+import SKPBFormContainer from "../form/SKPBFormContainer";
+import SKKFormContainer from "../form/SKKFormContainer";
 
 function RequestTab() {
   return (
     <div
       data-aos="fade-down"
-      className="flex flex-col-reverse md:flex-row gap-8"
-    >
+      className="flex flex-col-reverse md:flex-row gap-8">
       <VTabs defaultValue="SKIK">
         <VTabsList>
           <VTabsTrigger value="SKIK">SK Izin Keluarga</VTabsTrigger>
@@ -51,10 +52,10 @@ function RequestTab() {
           <>T3</>
         </VTabsContent>
         <VTabsContent value="SKPB">
-          <>T3</>
+          <SKPBFormContainer />
         </VTabsContent>
         <VTabsContent value="SKK">
-          <>T3</>
+          <SKKFormContainer />
         </VTabsContent>
       </VTabs>
     </div>
