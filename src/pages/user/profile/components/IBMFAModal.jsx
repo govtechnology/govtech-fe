@@ -21,6 +21,7 @@ import { useGetUserQuery } from "@/redux/api/userApi";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/axiosBaseQuery";
 import { useNavigate } from "react-router-dom";
+import IBMLogo from "@/pages/public/auth/components/IBMLogo";
 
 const IBMFASchema = Yup.object().shape({
   token: Yup.string().required("Token is required"),
@@ -128,6 +129,10 @@ function IBMFAModal() {
                   )}
                   Aktifkan IBM Security Verify
                 </Button>
+                <div className="flex justify-center items-center overflow-hidden gap-3 mt-6">
+                  <IBMLogo />
+                  <p className="text-sm">Didukung oleh IBM Security Verify</p>
+                </div>
               </RHFProvider>
             </>
           )}

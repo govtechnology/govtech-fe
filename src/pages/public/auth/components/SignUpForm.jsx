@@ -57,7 +57,7 @@ export const SignUpForm = () => {
     signupMutation({ data })
       .then((res) => {
         console.log(res);
-        if (res.data.status !== 200) {
+        if (res.success) {
           enqueueSnackbar(`Tidak dapat mendaftar, ${res.data.message}`, {
             variant: "error",
             autoHideDuration: 1800,

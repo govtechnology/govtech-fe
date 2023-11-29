@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/cnc/ui/dialog";
@@ -20,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "@/redux/authSlices";
 import Cookies from "universal-cookie";
 import { useSnackbar } from "notistack";
+import IBMLogo from "./IBMLogo";
 
 const LoginSchema = Yup.object().shape({
   token: Yup.string().required("Token diperlukan"),
@@ -85,29 +85,31 @@ export function IBMFALogin({ open, basicData }) {
     <Dialog open={open}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>IBM Security Verify</DialogTitle>
+          <DialogTitle>Autentikasi Dua Langkah</DialogTitle>
           <DialogDescription>
             Masukkan Token dari aplikasi IBM Security Verify
           </DialogDescription>
         </DialogHeader>
         <RHFProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <div className="grid">
-            <div className="grid items-center gap-4">
+            <div className="grid items-center">
               <RHFTextField
                 name="token"
                 label="Token"
                 helperText="Masukkan token"
               />
             </div>
-          </div>
-          <DialogFooter>
             <Button className="mt-6" disabled={buttonLoading}>
               {buttonLoading && (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               )}
               Sign In
             </Button>
-          </DialogFooter>
+            <div className="flex justify-center items-center overflow-hidden gap-3 mt-6">
+              <IBMLogo />
+              <p className="text-sm">Didukung oleh IBM Security Verify</p>
+            </div>
+          </div>
         </RHFProvider>
       </DialogContent>
     </Dialog>
