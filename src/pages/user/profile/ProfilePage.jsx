@@ -5,6 +5,7 @@ import {
   VTabsTrigger,
 } from "@/components/VerticalTabs";
 import GeneralTab from "./tabs/GeneralTab";
+import SecurityTab from "./tabs/SecurityTab";
 
 export default function ProfilePage() {
   return (
@@ -21,9 +22,13 @@ export default function ProfilePage() {
       <VTabs defaultValue="general">
         <VTabsList>
           <VTabsTrigger value="general">Informasi Umum</VTabsTrigger>
+          <VTabsTrigger value="security">Keamanan Akun</VTabsTrigger>
         </VTabsList>
         <VTabsContent value="general">
           <GeneralTab />
+        </VTabsContent>
+        <VTabsContent value="security">
+          <SecurityTab />
         </VTabsContent>
       </VTabs>
     </div>
