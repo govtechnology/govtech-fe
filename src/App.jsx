@@ -55,8 +55,12 @@ function App() {
               <Route path="*" element={<LoaderPage />} />
             )}
           </Route>
-          <Route path="/auth/signin" element={<LoginPage />} />
-          <Route path="/auth/signup" element={<SignUpPage />} />
+          {!cookies.get("ACCESS-TOKEN") && !cookies.get("REFRESH-TOKEN") && (
+            <>
+              <Route path="/auth/signin" element={<LoginPage />} />
+              <Route path="/auth/signup" element={<SignUpPage />} />
+            </>
+          )}
 
           <Route path="*" element={<NoPage />} />
         </Routes>
