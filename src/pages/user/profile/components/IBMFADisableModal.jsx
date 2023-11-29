@@ -14,6 +14,7 @@ import { useOtpDisableMutation } from "@/redux/api/authApi";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/axiosBaseQuery";
 import { useNavigate } from "react-router-dom";
+import IBMLogo from "@/pages/public/auth/components/IBMLogo";
 
 function IBMFADisableModal() {
   const { enqueueSnackbar } = useSnackbar();
@@ -56,20 +57,30 @@ function IBMFADisableModal() {
         <DialogHeader>
           <DialogTitle>Keamanan Autentikasi dua faktor</DialogTitle>
           <DialogDescription>
-            Apakah anda yakin untuk mematikan layanan IBM Security Verify
+            Apakah anda yakin untuk mematikan layanan IBM Security Verify,
+            keamanan akun akan dimungkinkan akan melemah setelah ini
           </DialogDescription>
-
-          <Button
-            type="submit"
-            className="align-end w-full mt-8"
-            onClick={handleDisable}
-            disabled={buttonLoading}
-          >
-            {buttonLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Matikan
-          </Button>
+          <div className="flex flex-col gap-8">
+            <Button
+              type="submit"
+              className="align-end mt-8 w-full"
+              onClick={handleDisable}
+              disabled={buttonLoading}
+            >
+              {buttonLoading && (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Matikan
+            </Button>
+            <div className="flex justify-center items-center overflow-hidden gap-3">
+              <IBMLogo />
+              <a className="" href="https://www.ibm.com/verify">
+                <p className=" hover:text-primary text-muted-foreground text-sm">
+                  Didukung oleh IBM Security Verify
+                </p>
+              </a>
+            </div>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>

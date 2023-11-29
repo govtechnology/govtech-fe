@@ -20,6 +20,7 @@ import { setCredentials } from "@/redux/authSlices";
 import Cookies from "universal-cookie";
 import { useSnackbar } from "notistack";
 import IBMLogo from "./IBMLogo";
+import { Link } from "react-router-dom";
 
 const LoginSchema = Yup.object().shape({
   token: Yup.string().required("Token diperlukan"),
@@ -107,7 +108,11 @@ export function IBMFALogin({ open, basicData }) {
             </Button>
             <div className="flex justify-center items-center overflow-hidden gap-3 mt-6">
               <IBMLogo />
-              <p className="text-sm">Didukung oleh IBM Security Verify</p>
+              <a className="" href="https://www.ibm.com/verify">
+                <p className=" hover:text-primary text-muted-foreground text-sm">
+                  Didukung oleh IBM Security Verify
+                </p>
+              </a>
             </div>
           </div>
         </RHFProvider>
