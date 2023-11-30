@@ -17,36 +17,36 @@ const AboutPage = () => {
             nama="Dini Puspitasari"
             role="Hustler"
             univ="Universitas Bina Sarana Informatika"
-            ig=""
-            linkedin=""
-            github=""
+            ig="https://instagram.com/dinipsptaa"
+            linkedin="https://www.linkedin.com/in/dini-puspitasari"
+            github="https://github.com/dinipuspitasari"
           />
           <PeopleCard
             img="/assets/images/Foto_Rosa.png"
             nama="Rosa Agnelia Rahmawati"
             role="Hipster"
             univ="Universitas Ahmad Dahlan"
-            ig=""
-            linkedin=""
-            github=""
+            ig="https://instagram.com/ocaa.ishere______"
+            linkedin="https://www.linkedin.com/in/rosaagnelia"
+            github="https://github.com/rossaagnelia"
           />
           <PeopleCard
             img="/assets/images/Foto_Amel.png"
             nama="Amelia Dewi Puspita"
             role="Hipster"
             univ="Universitas Maritim Raja Ali Haji"
-            ig=""
-            linkedin=""
-            github=""
+            ig="https://www.instagram.com/ameliadpspita/"
+            linkedin="https://www.linkedin.com/in/amelia-dewi-puspita-709852298/"
+            github="https://github.com/AmeliaDewiPuspita16"
           />
           <PeopleCard
             img="/assets/images/Foto_Jody.png"
             nama="Jody Yuantoro"
             role="Hipster & Hacker"
             univ="Universitas Muhammadiyah Malang"
-            ig=""
-            linkedin=""
-            github=""
+            ig="https://www.instagram.com/jodyyuan/"
+            linkedin="https://www.linkedin.com/in/xyzuan/"
+            github="https://github.com/xyzuan"
           />
           <PeopleCard
             img="/assets/images/Foto_Gigih.png"
