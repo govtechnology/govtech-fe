@@ -16,6 +16,7 @@ import ProfilePage from "./pages/user/profile/ProfilePage";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import { useGetUserQuery } from "./redux/api/userApi";
 import LoaderPage from "./pages/public/general/LoaderPage";
+import AboutPage from "./pages/public/about/AboutPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FaqPage />} />
           {isLoggedIn && userSuccess ? (
             <>
