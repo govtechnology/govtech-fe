@@ -16,7 +16,11 @@ import ProfilePage from "./pages/user/profile/ProfilePage";
 import AdminDashboard from "./pages/admin/dashboard/AdminDashboard";
 import { useGetUserQuery } from "./redux/api/userApi";
 import LoaderPage from "./pages/public/general/LoaderPage";
+
+import AboutPage from "./pages/public/about/AboutPage";
+
 import { SnackbarProvider } from "notistack";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,6 +36,7 @@ function App() {
 
   return (
     <div className="font-manrope">
+
       <SnackbarProvider
         anchorOrigin={{
           vertical: "top",
@@ -41,6 +46,7 @@ function App() {
         <Routes>
           <Route path="/" element={<BaseLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/faq" element={<FaqPage />} />
             {isLoggedIn && userSuccess ? (
               <>
@@ -56,6 +62,7 @@ function App() {
             )}
           </Route>
           {!cookies.get("ACCESS-TOKEN") && !cookies.get("REFRESH-TOKEN") && (
+
             <>
               <Route path="/auth/signin" element={<LoginPage />} />
               <Route path="/auth/signup" element={<SignUpPage />} />
