@@ -69,7 +69,6 @@ function GeneralTab() {
   } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data.name);
     setButtonLoading(true);
     userProfileUpdate({ data })
       .unwrap()

@@ -12,43 +12,37 @@ import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 import { useSnackbar } from "notistack";
 
-const SKPBSchema = Yup.object().shape({
+const SKDSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
   nama: Yup.string().required("Nama is required"),
   tempatLahir: Yup.string().required("Tempat Lahir is required"),
   tanggalLahir: Yup.date().required("Tanggal Lahir is required"),
-  kelamin: Yup.string().required("Jenis Kelamin is reqired"),
   alamat: Yup.string().required("Alamat is required"),
-  bank: Yup.string().required("Bank is required"),
   agama: Yup.string().required("Agama is required"),
+  kelamin: Yup.string().required("Kelamin is required"),
   status: Yup.string().required("Status is required"),
-  pendidikan: Yup.string().required("Pendidikan is required"),
   pekerjaan: Yup.string().required("Pekerjaan is required"),
-  usaha: Yup.string().required("Usaha is required"),
 });
 
 const defaultValues = {
   nik: "",
   nama: "",
   tempatLahir: "",
-  tanggalLahir: "",
-  kelamin: "",
+  tanggaLahir: "",
   alamat: "",
-  bank: "",
+  kelamin: "",
   agama: "",
   status: "",
-  pendidikan: "",
   pekerjaan: "",
-  usaha: "",
 };
 
-function SKPBFormContainer() {
+function SKDFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: yupResolver(SKPBSchema),
+    resolver: yupResolver(SKDSchema),
     defaultValues,
   });
 
@@ -61,19 +55,16 @@ function SKPBFormContainer() {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     requestCertificate({
-      skType: "SKPB",
+      skType: "SKD",
       skData: {
         nik: data.nik,
         nama: data.nama,
         ttl: `${data.tempatLahir}, ${formatDateNoTime(data.tanggalLahir)}`,
-        kelamin: data.kelamin,
         alamat: data.alamat,
-        bank: data.bank,
         agama: data.agama,
+        kelamin: data.kelamin,
         status: data.status,
-        pendidikan: data.pendidikan,
         pekerjaan: data.pekerjaan,
-        usaha: data.usaha,
       },
     })
       .then((res) => {
@@ -115,7 +106,7 @@ function SKPBFormContainer() {
             <div className="grid grid-cols-2 gap-6">
               <RHFTextField
                 name="tempatLahir"
-                helperText=" Tempat lahir anda"
+                helperText="Tempat lahir anda"
                 label="Tempat Lahir"
               />
               <RHFDatePicker
@@ -131,31 +122,24 @@ function SKPBFormContainer() {
             />
           </div>
           <div>
+            <RHFTextField name="agama" helperText="Agama anda" label="Agama" />
+
             <RHFTextField
-              name="bank"
-              helperText="Bank anda"
-              label="Bank Anda"
+              name="kelamin"
+              helperText="Kelamin anda"
+              label="Kelamin"
             />
-            <RHFTextField name="agama" helperText="agama" label="Agama Anda" />
+
             <RHFTextField
               name="status"
               helperText="Status anda"
-              label="Status Anda"
+              label="Status"
             />
-            <RHFTextField
-              name="pendidikan"
-              helperText="Pendidikan anda"
-              label="Pendidikan Anda"
-            />
+
             <RHFTextField
               name="pekerjaan"
               helperText="Pekerjaan anda"
               label="Pekerjaan"
-            />
-            <RHFTextField
-              name="usaha"
-              helperText="Usaha anda"
-              label="Usaha Anda"
             />
           </div>
         </div>
@@ -174,4 +158,4 @@ function SKPBFormContainer() {
   );
 }
 
-export default SKPBFormContainer;
+export default SKDFormContainer;

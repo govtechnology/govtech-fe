@@ -8,10 +8,13 @@ import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
+import { useSnackbar } from "notistack";
+import RHFSelect from "@/components/hook-form/RHFSelect";
+import { SelectItem } from "@/components/cnc/ui/select";
 
 const SKKSchema = Yup.object().shape({
   nama: Yup.string().required("Nama is required"),
-  jenisKelamin: Yup.string().required("Jenis Kelamin is reqired"),
+  jenisKelamin: Yup.string().required("Jenis Kelamin is required"),
   alamat: Yup.string().required("Alamat is required"),
   umur: Yup.string().required("Umur is required"),
   hariMeninggal: Yup.string().required("Hari Meniggal is required"),
@@ -34,6 +37,7 @@ const defaultValues = {
 function SKKFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(SKKSchema),
@@ -60,9 +64,20 @@ function SKKFormContainer() {
         lokasiMeninggal: data.lokasiMeninggal,
         sebab: data.sebab,
       },
-    }).finally(() => {
-      setButtonLoading(false);
-    });
+    })
+      .then((res) => {
+        if (res.data.success) {
+          enqueueSnackbar("Permintaan Surat berhasil Diterima", {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Error: ${res}`);
+        }
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
@@ -81,11 +96,14 @@ function SKKFormContainer() {
               helperText="Nama lengkap mendiang"
               label="Nama Lengkap"
             />
-            <RHFTextField
+            <RHFSelect
               name="jenisKelamin"
-              helperText="Jenis Kelamin"
+              helperText="Jenis Kelamin mendiang"
               label="Jenis Kelamin"
-            />
+            >
+              <SelectItem value="Laki-Laki">Laki-Laki</SelectItem>
+              <SelectItem value="Perempuan">Perempuan</SelectItem>
+            </RHFSelect>
             <RHFTextField
               name="alamat"
               helperText="Alamat terakhir"

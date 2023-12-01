@@ -11,11 +11,22 @@ import { Button } from "@/components/cnc/ui/button";
 import { Icons } from "@/components/Icons";
 import { cn } from "@/utils/cnc";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const LoginSchema = Yup.object().shape({
-  name: Yup.string().required("Nama diperlukan"),
-  email: Yup.string().required("Email diperlukan"),
-  password: Yup.string().required("Password diperlukan"),
+  name: Yup.string()
+    .matches(/^[^\d]+$/, "Nama tidak valid")
+    .required("Nama diperlukan"),
+  email: Yup.string()
+    .email("Alamat email tidak valid")
+    .required("Email diperlukan"),
+  password: Yup.string()
+    .min(8, "Password minimal 8 karakter")
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
+      "Password harus mengandung kurang lebih satu huruf kapital, satu huruf kecil, dan satu angka"
+    )
+    .required("Password diperlukan"),
 });
 
 const defaultValues = {
@@ -28,6 +39,7 @@ export const SignUpForm = () => {
   const [signupMutation] = useCreateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
@@ -43,9 +55,22 @@ export const SignUpForm = () => {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     signupMutation({ data })
-      .then(() => {
-        navigate("/auth/signin");
+      .then((res) => {
+        console.log(res);
+        if (res.success) {
+          enqueueSnackbar(`Tidak dapat mendaftar, ${res.data.message}`, {
+            variant: "error",
+            autoHideDuration: 1800,
+          });
+        } else {
+          enqueueSnackbar(`Berhasil mendaftar`, {
+            variant: "success",
+            autoHideDuration: 1800,
+          });
+          navigate("/auth/signin");
+        }
       })
+
       .finally(() => {
         setButtonLoading(false);
       });
@@ -77,7 +102,7 @@ export const SignUpForm = () => {
               helperText="Masukkan password"
             />
           </div>
-          <Button disabled={buttonLoading}>
+          <Button className="mt-6" disabled={buttonLoading}>
             {buttonLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}

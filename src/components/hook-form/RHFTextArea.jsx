@@ -33,6 +33,11 @@ export default function RHFTextArea({ name, label, helperText }) {
               }
               error={!!error}
             />
+            {error && (
+              <p className="mt-2 text-sm font-medium text-red-500 dark:text-red-900">
+                {error.message}
+              </p>
+            )}
           </>
         )}
       />

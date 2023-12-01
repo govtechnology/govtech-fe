@@ -12,43 +12,46 @@ import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 import { useSnackbar } from "notistack";
 
-const SKPBSchema = Yup.object().shape({
+const SKMSSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
   nama: Yup.string().required("Nama is required"),
   tempatLahir: Yup.string().required("Tempat Lahir is required"),
   tanggalLahir: Yup.date().required("Tanggal Lahir is required"),
-  kelamin: Yup.string().required("Jenis Kelamin is reqired"),
   alamat: Yup.string().required("Alamat is required"),
-  bank: Yup.string().required("Bank is required"),
-  agama: Yup.string().required("Agama is required"),
-  status: Yup.string().required("Status is required"),
-  pendidikan: Yup.string().required("Pendidikan is required"),
-  pekerjaan: Yup.string().required("Pekerjaan is required"),
-  usaha: Yup.string().required("Usaha is required"),
+  usaha: Yup.string().required("Pekerjaan is required"),
+  jenisAlat: Yup.string().required("Jenis Alat is required"),
+  jumlahAlat: Yup.string().required("Jumlah Alat is required"),
+  fungsiAlat: Yup.string().required("Fungsi Alat is required"),
+  jenisBBM: Yup.string().required("Jenis BBM is required"),
+  kodeSPBU: Yup.string().required("Kode SPBU is required"),
+  tglBerlaku: Yup.date().required("Tanggal Berlaku is required"),
+  lokasiSPBU: Yup.string().required("Tanggal Berlaku is required"),
 });
 
 const defaultValues = {
   nik: "",
   nama: "",
   tempatLahir: "",
-  tanggalLahir: "",
-  kelamin: "",
+  tanggaLahir: "",
+  jenisKelamin: "",
   alamat: "",
-  bank: "",
-  agama: "",
-  status: "",
-  pendidikan: "",
-  pekerjaan: "",
   usaha: "",
+  jenisAlat: "",
+  jumlahAlat: "",
+  fungsiAlat: "",
+  jenisBBM: "",
+  kodeSPBU: "",
+  tglBerlaku: "",
+  lokasiSPBU: "",
 };
 
-function SKPBFormContainer() {
+function SKMSFormContainer() {
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const methods = useForm({
-    resolver: yupResolver(SKPBSchema),
+    resolver: yupResolver(SKMSSchema),
     defaultValues,
   });
 
@@ -61,19 +64,20 @@ function SKPBFormContainer() {
   const onSubmit = async (data) => {
     setButtonLoading(true);
     requestCertificate({
-      skType: "SKPB",
+      skType: "SKMS",
       skData: {
         nik: data.nik,
         nama: data.nama,
         ttl: `${data.tempatLahir}, ${formatDateNoTime(data.tanggalLahir)}`,
-        kelamin: data.kelamin,
         alamat: data.alamat,
-        bank: data.bank,
-        agama: data.agama,
-        status: data.status,
-        pendidikan: data.pendidikan,
-        pekerjaan: data.pekerjaan,
         usaha: data.usaha,
+        jenisAlat: data.jenisAlat,
+        jumlahAlat: data.jumlahAlat,
+        fungsiAlat: data.fungsiAlat,
+        jenisBBM: data.jenisBBM,
+        kodeSPBU: data.kodeSPBU,
+        lokasiSPBU: data.lokasiSPBU,
+        tglBerlaku: data.tglBerlaku,
       },
     })
       .then((res) => {
@@ -115,7 +119,7 @@ function SKPBFormContainer() {
             <div className="grid grid-cols-2 gap-6">
               <RHFTextField
                 name="tempatLahir"
-                helperText=" Tempat lahir anda"
+                helperText="Tempat lahir anda"
                 label="Tempat Lahir"
               />
               <RHFDatePicker
@@ -132,30 +136,50 @@ function SKPBFormContainer() {
           </div>
           <div>
             <RHFTextField
-              name="bank"
-              helperText="Bank anda"
-              label="Bank Anda"
-            />
-            <RHFTextField name="agama" helperText="agama" label="Agama Anda" />
-            <RHFTextField
-              name="status"
-              helperText="Status anda"
-              label="Status Anda"
-            />
-            <RHFTextField
-              name="pendidikan"
-              helperText="Pendidikan anda"
-              label="Pendidikan Anda"
-            />
-            <RHFTextField
-              name="pekerjaan"
-              helperText="Pekerjaan anda"
-              label="Pekerjaan"
-            />
-            <RHFTextField
               name="usaha"
-              helperText="Usaha anda"
-              label="Usaha Anda"
+              helperText="Jenis Usaha Anda"
+              label="Jenis Usaha"
+            />
+            <RHFTextField
+              name="jenisAlat"
+              helperText="Jenis Alat "
+              label="Jenis Alat"
+            />
+
+            <RHFTextField
+              name="jumlahAlat"
+              helperText="Jumlah Alat "
+              label="Jumlah Alat"
+            />
+
+            <RHFTextField
+              name="fungsiAlat"
+              helperText="Fungsi Alat "
+              label="Fungsi Alat"
+            />
+
+            <RHFTextField
+              name="jenisBBM"
+              helperText="Jenis BBM yang diperlukan "
+              label="Jenis BBM"
+            />
+
+            <div className="grid grid-cols-2 gap-6">
+              <RHFTextField
+                name="kodeSPBU"
+                helperText="Tempat lahir anda"
+                label="Kode SPBU"
+              />
+              <RHFDatePicker
+                name="tglBerlaku"
+                helperText="dd/mm/yy"
+                label="Tanggal Berlaku"
+              />
+            </div>
+            <RHFTextField
+              name="lokasiSPBU"
+              helperText="Lokasi SPBUnya "
+              label="Lokasi SPBU"
             />
           </div>
         </div>
@@ -174,4 +198,4 @@ function SKPBFormContainer() {
   );
 }
 
-export default SKPBFormContainer;
+export default SKMSFormContainer;

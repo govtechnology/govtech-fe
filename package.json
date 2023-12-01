@@ -52,6 +52,7 @@
     "path": "^0.12.7",
     "postcss": "^8.4.31",
     "prop-types": "^15.8.1",
+    "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",

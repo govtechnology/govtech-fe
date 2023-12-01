@@ -6,14 +6,21 @@ import {
 } from "@/components/VerticalTabs";
 import SKIKFormContainer from "../form/SKIKFormContainer";
 import SKTMFormContainer from "../form/SKTMFormContainer";
+import SKDFormContainer from "../form/SKDFormContainer";
+import SKDIFormContainer from "../form/SKDIFormContainer";
+import SKMSFormContainer from "../form/SKMSFormContainer";
+import SKCKFormContainer from "../form/SKCKFormContainer";
 import SKPBFormContainer from "../form/SKPBFormContainer";
 import SKKFormContainer from "../form/SKKFormContainer";
+import SKHILFormContainer from "../form/SKHILFormContainer";
+import SKUFormContainer from "../form/SKUFormContainer";
 
 function RequestTab() {
   return (
     <div
       data-aos="fade-down"
-      className="flex flex-col-reverse md:flex-row gap-8">
+      className="flex flex-col-reverse md:flex-row gap-8"
+    >
       <VTabs defaultValue="SKIK">
         <VTabsList>
           <VTabsTrigger value="SKIK">SK Izin Keluarga</VTabsTrigger>
@@ -34,22 +41,22 @@ function RequestTab() {
           <SKTMFormContainer />
         </VTabsContent>
         <VTabsContent value="SKMS">
-          <>T3</>
+          <SKMSFormContainer/>
         </VTabsContent>
         <VTabsContent value="SKCK">
-          <>T3</>
+          <SKCKFormContainer/>
         </VTabsContent>
         <VTabsContent value="SKU">
-          <>T3</>
+          <SKUFormContainer />
         </VTabsContent>
         <VTabsContent value="SKHIL">
-          <>T3</>
+          <SKHILFormContainer />
         </VTabsContent>
         <VTabsContent value="SKD">
-          <>T3</>
+          <SKDFormContainer />
         </VTabsContent>
         <VTabsContent value="SKDI">
-          <>T3</>
+          <SKDIFormContainer />
         </VTabsContent>
         <VTabsContent value="SKPB">
           <SKPBFormContainer />
