@@ -2,6 +2,7 @@
 import { Button } from "@/components/cnc/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -10,27 +11,11 @@ import {
 } from "@/components/cnc/ui/dialog";
 import { Label } from "@/components/cnc/ui/label";
 import { Skeleton } from "@/components/cnc/ui/skeleton";
-import {
-  useGenerateUserCertificateMutation,
-  useGetUserCertificateByIdQuery,
-} from "@/redux/api/certificateApi";
-import { useGetUserQuery } from "@/redux/api/userApi";
+import { useGetUserCertificateByIdQuery } from "@/redux/api/certificateApi";
 
 function DetailCertificateModal({ id }) {
   const { data: certificateData, isSuccess: certificateSuccess } =
     useGetUserCertificateByIdQuery({ id: id });
-
-  const [generateCertificate] = useGenerateUserCertificateMutation();
-  const { data: userData } = useGetUserQuery();
-
-  const handleGenerate = async () => {
-    generateCertificate({
-      userId: userData.uuid,
-      skId: id,
-      skType: certificateData.certificate.skType,
-      skData: certificateData.certificate.skData,
-    });
-  };
 
   return (
     <Dialog>
@@ -59,7 +44,9 @@ function DetailCertificateModal({ id }) {
         )}
 
         <DialogFooter>
-          <Button onClick={handleGenerate}>Save changes</Button>
+          <DialogClose asChild>
+            <Button type="button">Close</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

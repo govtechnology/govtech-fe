@@ -1,10 +1,10 @@
 import { formatDate } from "@/utils/dateFormatter";
 import { DataTableColumnHeader } from "./UserDataTableColumnHeader";
 import { skStatuses } from "@/constant/skStatus";
-import { Button } from "@/components/cnc/ui/button";
 import UserCertificateDownloadButton from "../components/UserCertificateDownloadButton";
 import { skTypes } from "@/constant/skType";
 import { Badge } from "@/components/cnc/ui/badge";
+import DetailCertificateModal from "../components/DetailCertificateModal";
 
 export const columns = [
   {
@@ -89,7 +89,7 @@ export const columns = [
 
       return (
         <div className="flex gap-2">
-          <Button>Detail</Button>
+          <DetailCertificateModal id={rowData.id} />
           {rowData.skDir !== null ? (
             <UserCertificateDownloadButton skDir={rowData.skDir} />
           ) : null}

@@ -11,6 +11,7 @@ import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 import { useSnackbar } from "notistack";
+import { useGetUserProfileQuery } from "@/redux/api/userProfileApi";
 
 const SKPBSchema = Yup.object().shape({
   nik: Yup.string().required("NIK is required"),
@@ -27,25 +28,26 @@ const SKPBSchema = Yup.object().shape({
   usaha: Yup.string().required("Usaha is required"),
 });
 
-const defaultValues = {
-  nik: "",
-  nama: "",
-  tempatLahir: "",
-  tanggalLahir: "",
-  kelamin: "",
-  alamat: "",
-  bank: "",
-  agama: "",
-  status: "",
-  pendidikan: "",
-  pekerjaan: "",
-  usaha: "",
-};
-
 function SKPBFormContainer() {
+  const { data: userProfile } = useGetUserProfileQuery();
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+  const defaultValues = {
+    nik: userProfile.profile.nik,
+    nama: userProfile.profile.name,
+    tempatLahir: userProfile.profile.tempatLahir,
+    tanggalLahir: userProfile.profile.tanggalLahir,
+    kelamin: "",
+    alamat: "",
+    bank: "",
+    agama: "",
+    status: "",
+    pendidikan: "",
+    pekerjaan: "",
+    usaha: "",
+  };
 
   const methods = useForm({
     resolver: yupResolver(SKPBSchema),

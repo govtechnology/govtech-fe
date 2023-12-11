@@ -11,6 +11,7 @@ import { useRequestUserCertificateMutation } from "@/redux/api/certificateApi";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
 import { formatDateNoTime } from "@/utils/dateFormatter";
 import { useSnackbar } from "notistack";
+import { useGetUserProfileQuery } from "@/redux/api/userProfileApi";
 
 const SKIKSchema = Yup.object().shape({
   nikOrtu: Yup.string().required("NIK Ortu is required"),
@@ -30,24 +31,25 @@ const SKIKSchema = Yup.object().shape({
   destination: Yup.string().required("Destination is required"),
 });
 
-const defaultValues = {
-  nikOrtu: "",
-  namaOrtu: "",
-  tempat_lahir_ortu: "",
-  tanggal_lahir_ortu: "",
-  alamatOrtu: "",
-  nik: "",
-  nama: "",
-  tempat_lahir: "",
-  tanggal_lahir: "",
-  alamat: "",
-  destination: "",
-};
-
 function SKIKFormContainer() {
+  const { data: userProfile } = useGetUserProfileQuery();
   const [requestCertificate] = useRequestUserCertificateMutation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+  const defaultValues = {
+    nikOrtu: "",
+    namaOrtu: "",
+    tempat_lahir_ortu: "",
+    tanggal_lahir_ortu: "",
+    alamatOrtu: "",
+    nik: userProfile.profile.nik,
+    nama: userProfile.profile.name,
+    tempatLahir: userProfile.profile.tempatLahir,
+    tanggalLahir: userProfile.profile.tanggalLahir,
+    alamat: "",
+    destination: "",
+  };
 
   const methods = useForm({
     resolver: yupResolver(SKIKSchema),
@@ -145,12 +147,12 @@ function SKIKFormContainer() {
             />
             <div className="grid grid-cols-2 gap-6">
               <RHFTextField
-                name="tempat_lahir"
+                name="tempatLahir"
                 helperText="Tempat lahir anda"
                 label="Tempat Lahir"
               />
               <RHFDatePicker
-                name="tanggal_lahir"
+                name="tanggalLahir"
                 helperText="dd/mm/yy"
                 label="Tanggal Lahir"
               />

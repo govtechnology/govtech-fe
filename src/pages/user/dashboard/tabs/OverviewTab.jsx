@@ -10,7 +10,7 @@ function OverviewTab() {
       data-aos="fade-down"
       className="flex flex-col-reverse md:flex-row gap-8"
     >
-      <div className="flex flex-col overflow-y-auto w-full h-[630px] border border-gray-100 rounded-lg p-8">
+      <div className="flex flex-col overflow-y-auto w-full h-min border border-gray-100 rounded-lg p-8">
         {isSuccess ? (
           <>
             <div className="mb-8">
