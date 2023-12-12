@@ -59,7 +59,9 @@ function DetailCertificateModal({ id }) {
         )}
 
         <DialogFooter>
-          <Button onClick={handleGenerate}>Save changes</Button>
+          <Button variant="secondary">Revision</Button>
+          <Button variant="secondary">Decline</Button>
+          <Button onClick={handleGenerate}>Accept</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
