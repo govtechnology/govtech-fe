@@ -21,6 +21,7 @@ import AboutPage from "./pages/public/about/AboutPage";
 
 import { SnackbarProvider } from "notistack";
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: userData, isSuccess: userSuccess } = useGetUserQuery();
@@ -31,35 +32,11 @@ function App() {
     if (cookies.get("ACCESS-TOKEN") && cookies.get("REFRESH-TOKEN")) {
       setIsLoggedIn(true);
     }
-
-    (function (m, a, z, e) {
-      var s, t;
-      try {
-        t = m.sessionStorage.getItem("maze-us");
-      } catch (err) {}
-
-      if (!t) {
-        t = new Date().getTime();
-        try {
-          m.sessionStorage.setItem("maze-us", t);
-        } catch (err) {}
-      }
-
-      s = a.createElement("script");
-      s.src = z + "?apiKey=" + e;
-      s.async = true;
-      a.getElementsByTagName("head")[0].appendChild(s);
-      m.mazeUniversalSnippetApiKey = e;
-    })(
-      window,
-      document,
-      "https://snippet.maze.co/maze-universal-loader.js",
-      "db82ff20-2dfb-4fa7-b83c-80ed7a3fc181"
-    );
   }, []);
 
   return (
     <div className="font-manrope">
+
       <SnackbarProvider
         anchorOrigin={{
           vertical: "top",
@@ -85,6 +62,7 @@ function App() {
             )}
           </Route>
           {!cookies.get("ACCESS-TOKEN") && !cookies.get("REFRESH-TOKEN") && (
+
             <>
               <Route path="/auth/signin" element={<LoginPage />} />
               <Route path="/auth/signup" element={<SignUpPage />} />

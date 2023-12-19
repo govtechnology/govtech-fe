@@ -12,10 +12,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "./cnc/ui/avatar";
 import { useDispatch } from "@/redux/store";
 import { logOut } from "@/redux/authSlices";
 import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "@/redux/api/authApi";
 
 export function NavigationDropdown({ name, email }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ logoutMutation ] = useLogoutMutation();
 
   return (
     <DropdownMenu>
@@ -45,6 +47,7 @@ export function NavigationDropdown({ name, email }) {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={async () => {
+              logoutMutation();
               dispatch(logOut());
               window.location.href = "/";
             }}
