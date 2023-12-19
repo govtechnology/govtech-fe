@@ -6,6 +6,7 @@ import {
 } from "@/components/VerticalTabs";
 import GeneralTab from "./tabs/GeneralTab";
 import SecurityTab from "./tabs/SecurityTab";
+import { SessionTab } from "./tabs/SessionTab";
 
 export default function ProfilePage() {
   return (
@@ -23,12 +24,16 @@ export default function ProfilePage() {
         <VTabsList>
           <VTabsTrigger value="general">Informasi Umum</VTabsTrigger>
           <VTabsTrigger value="security">Keamanan Akun</VTabsTrigger>
+          <VTabsTrigger value="session">Session Log</VTabsTrigger>
         </VTabsList>
         <VTabsContent value="general">
           <GeneralTab />
         </VTabsContent>
         <VTabsContent value="security">
           <SecurityTab />
+        </VTabsContent>
+        <VTabsContent value="session">
+          <SessionTab />
         </VTabsContent>
       </VTabs>
     </div>
