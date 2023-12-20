@@ -16,6 +16,13 @@ export const authApi = baseApi
             },
           }),
         }),
+        logout: builder.mutation({
+          query: () => ({
+            url: '/auth/signout',
+            method: 'POST',
+            headers: getUserAuthHeaderApi()
+          })
+        }),
         create: builder.mutation({
           query: ({ data }) => ({
             url: `/auth/signup`,
@@ -68,6 +75,7 @@ export const authApi = baseApi
 export const {
   useLoginMutation,
   useCreateMutation,
+  useLogoutMutation,
   useOtpVerifyMutation,
   useOtpValidateMutation,
   useOtpGenerateQuery,
