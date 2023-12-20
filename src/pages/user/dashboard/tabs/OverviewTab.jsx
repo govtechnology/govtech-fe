@@ -1,6 +1,7 @@
 import { useGetUserCertificateQuery } from "@/redux/api/certificateApi";
 import RecentCertificateItem from "../components/RecentCertificateItem";
 import { Skeleton } from "@/components/cnc/ui/skeleton";
+import StatusCertificateItem from "../components/StatusCertificateItem";
 
 function OverviewTab() {
   const { data: certificateData, isSuccess } = useGetUserCertificateQuery();
@@ -25,11 +26,10 @@ function OverviewTab() {
                   .filter((certificate) => certificate.skStatus === "VERIFY")
                   .map((certificate, index) => (
                     <>
-                      <RecentCertificateItem
+                      <StatusCertificateItem
                         key={index}
                         skType={certificate.skType}
                         requestDate={certificate.requestDate}
-                        approveDate={certificate.approvedDate}
                       />
                     </>
                   ))
