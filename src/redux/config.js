@@ -1,1 +1,1 @@
-export const BASE_API_URL = "https://ngubalan-api.xyzuan.my.id/";
+export const BASE_API_URL = "https://api.xyzuan.my.id";

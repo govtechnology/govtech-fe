@@ -8,7 +8,7 @@ export const userProfileApi = baseApi
       return {
         getUserProfile: builder.query({
           query: () => ({
-            url: `/profile`,
+            url: `/ngubalan/profile`,
             method: "GET",
             headers: getUserAuthHeaderApi(),
           }),
@@ -16,7 +16,7 @@ export const userProfileApi = baseApi
         }),
         updateUserProfile: builder.mutation({
           query: ({ data }) => ({
-            url: `/profile`,
+            url: `/ngubalan/profile`,
             method: "PATCH",
             body: {
               name: data.name,

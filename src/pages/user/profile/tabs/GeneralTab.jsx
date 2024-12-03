@@ -1,8 +1,8 @@
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/cnc/ui/button";
+import { Input } from "@/components/cnc/ui/input";
 import { Skeleton } from "@/components/cnc/ui/skeleton";
 import RHFDatePicker from "@/components/hook-form/RHFDatePicker";
-import RHFFilePicker from "@/components/hook-form/RHFFilePicker";
 import RHFProvider from "@/components/hook-form/RHFProvider";
 import RHFTextArea from "@/components/hook-form/RHFTextArea";
 import RHFTextField from "@/components/hook-form/RHFTextField";
@@ -10,7 +10,9 @@ import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
 } from "@/redux/api/userProfileApi";
+import { BASE_API_URL } from "@/redux/config";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -19,9 +21,7 @@ function GeneralTab() {
   const { data: userProfileData, isSuccess: userProfileDataSuccess } =
     useGetUserProfileQuery();
   const [userProfileUpdate] = useUpdateUserProfileMutation();
-
   const [buttonLoading, setButtonLoading] = useState(false);
-
   const ProfileSchema = Yup.object().shape({});
 
   const defaultValues = {
@@ -77,6 +77,43 @@ function GeneralTab() {
       });
   };
 
+  const handleFileUpload = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch(`${BASE_API_URL}/ktp/process`, {
+        // const response = await fetch(`http://localhost:5000/process`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      methods.setValue("name", result.data.fullname);
+      methods.setValue("nik", result.data.identity_number);
+      methods.setValue("tempatLahir", result.data.birth_place);
+      methods.setValue("tanggalLahir", result.data.birth_date);
+      methods.setValue("alamat", result.data.address);
+      enqueueSnackbar(`Berhasil mendapatkan data dari KYC KTP`, {
+        variant: "success",
+        autoHideDuration: 1800,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const onFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      handleFileUpload(file);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -118,12 +155,15 @@ function GeneralTab() {
               />
             </div>
             <div>
-              <RHFFilePicker
-                name="ktp"
-                helperText="Upload Scan KTP anda (png, jpg, pdf)"
-                label="Scan Kartu Tanda Penduduk"
+              <Input
+                placeholder="Masukkan KTP"
+                type="file"
+                onChange={onFileChange}
               />
             </div>
+            {buttonLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
           </div>
           <Button className="align-end w-full mt-8" disabled={buttonLoading}>
             {buttonLoading && (

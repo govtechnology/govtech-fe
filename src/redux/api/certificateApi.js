@@ -8,21 +8,21 @@ export const certificateApi = baseApi
       return {
         getUserCertificate: builder.query({
           query: () => ({
-            url: `/certificate`,
+            url: `/ngubalan/certificate`,
             method: "GET",
             headers: getUserAuthHeaderApi(),
           }),
         }),
         getUserCertificateById: builder.query({
           query: ({ id }) => ({
-            url: `/certificate/${id}`,
+            url: `/ngubalan/certificate/${id}`,
             method: "GET",
             headers: getUserAuthHeaderApi(),
           }),
         }),
         requestUserCertificate: builder.mutation({
           query: ({ skType, skData }) => ({
-            url: `/certificate/request`,
+            url: `/ngubalan/certificate/request`,
             method: "POST",
             body: { skType, skData },
             headers: getUserAuthHeaderApi(),
@@ -30,7 +30,7 @@ export const certificateApi = baseApi
         }),
         generateUserCertificate: builder.mutation({
           query: ({ skId, skType, skData }) => ({
-            url: `/certificate/generate`,
+            url: `/ngubalan/certificate/generate`,
             method: "POST",
             body: { skId, skType, skData },
             headers: getUserAuthHeaderApi(),
@@ -38,7 +38,7 @@ export const certificateApi = baseApi
         }),
         getUserLinkCertificate: builder.mutation({
           query: ({ remotePath }) => ({
-            url: "/certificate/download",
+            url: "/ngubalan/certificate/download",
             method: "POST",
             body: { remotePath },
             headers: getUserAuthHeaderApi(),

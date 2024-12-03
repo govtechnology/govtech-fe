@@ -6,7 +6,7 @@ export const userApi = baseApi.enhanceEndpoints({}).injectEndpoints({
     return {
       getUser: builder.query({
         query: () => ({
-          url: `/user`,
+          url: `/ngubalan/user`,
           method: "GET",
           headers: getUserAuthHeaderApi(),
         }),

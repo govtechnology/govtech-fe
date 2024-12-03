@@ -6,7 +6,7 @@ export const sessionApi = baseApi.enhanceEndpoints({}).injectEndpoints({
     return {
       getSession: builder.query({
         query: () => ({
-          url: `/sessions`,
+          url: `/ngubalan/sessions`,
           method: "GET",
           headers: getUserAuthHeaderApi(),
         }),

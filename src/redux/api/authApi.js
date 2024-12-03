@@ -8,7 +8,7 @@ export const authApi = baseApi
       return {
         login: builder.mutation({
           query: ({ data }) => ({
-            url: `/auth/signin`,
+            url: `/ngubalan/auth/signin`,
             method: "POST",
             body: {
               email: data.email,
@@ -18,14 +18,14 @@ export const authApi = baseApi
         }),
         logout: builder.mutation({
           query: () => ({
-            url: '/auth/signout',
-            method: 'POST',
-            headers: getUserAuthHeaderApi()
-          })
+            url: "/ngubalan/auth/signout",
+            method: "POST",
+            headers: getUserAuthHeaderApi(),
+          }),
         }),
         create: builder.mutation({
           query: ({ data }) => ({
-            url: `/auth/signup`,
+            url: `/ngubalan/auth/signup`,
             method: "POST",
             body: {
               name: data.name,
@@ -36,14 +36,14 @@ export const authApi = baseApi
         }),
         otpGenerate: builder.query({
           query: () => ({
-            url: "/auth/otp/generate",
+            url: "/ngubalan/auth/otp/generate",
             method: "POST",
             headers: getUserAuthHeaderApi(),
           }),
         }),
         otpVerify: builder.mutation({
           query: ({ token }) => ({
-            url: "/auth/otp/verify",
+            url: "/ngubalan/auth/otp/verify",
             method: "POST",
             body: {
               token: token,
@@ -53,7 +53,7 @@ export const authApi = baseApi
         }),
         otpValidate: builder.mutation({
           query: ({ userId, token }) => ({
-            url: "/auth/otp/validate",
+            url: "/ngubalan/auth/otp/validate",
             method: "POST",
             body: {
               userId: userId,
@@ -63,7 +63,7 @@ export const authApi = baseApi
         }),
         otpDisable: builder.mutation({
           query: () => ({
-            url: "/auth/otp/disable",
+            url: "/ngubalan/auth/otp/disable",
             method: "POST",
             headers: getUserAuthHeaderApi(),
           }),
